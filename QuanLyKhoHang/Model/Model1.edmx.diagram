@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="6b1e5cf98db945989f9e8062e63ecbbc" Name="Diagram1" ZoomLevel="73">
+        <EntityTypeShape EntityType="QuanLyKhoModel.Account" Width="1.5" PointX="5.25" PointY="18.125" />
+        <EntityTypeShape EntityType="QuanLyKhoModel.Customer" Width="1.5" PointX="3" PointY="14.625" />
+        <EntityTypeShape EntityType="QuanLyKhoModel.Employee" Width="1.5" PointX="5.25" PointY="10.25" />
+        <EntityTypeShape EntityType="QuanLyKhoModel.Input" Width="1.5" PointX="3" PointY="6.875" />
+        <EntityTypeShape EntityType="QuanLyKhoModel.InputInfo" Width="1.5" PointX="5.25" PointY="6.625" />
+        <EntityTypeShape EntityType="QuanLyKhoModel.Output" Width="1.5" PointX="5.25" PointY="14.875" />
+        <EntityTypeShape EntityType="QuanLyKhoModel.OutputInfo" Width="1.5" PointX="7.5" PointY="2.5" />
+        <EntityTypeShape EntityType="QuanLyKhoModel.Product" Width="1.5" PointX="3" PointY="3.5" />
+        <EntityTypeShape EntityType="QuanLyKhoModel.RankEmployee" Width="1.5" PointX="3" PointY="11.125" />
+        <EntityTypeShape EntityType="QuanLyKhoModel.Storage" Width="1.5" PointX="3" PointY="0.75" />
+        <EntityTypeShape EntityType="QuanLyKhoModel.StorageDetail" Width="1.5" PointX="5.25" PointY="2.25" />
+        <EntityTypeShape EntityType="QuanLyKhoModel.Suplier" Width="1.5" PointX="0.75" PointY="3.5" />
+        <EntityTypeShape EntityType="QuanLyKhoModel.sysdiagram" Width="1.5" PointX="7.75" PointY="6.375" />
+        <EntityTypeShape EntityType="QuanLyKhoModel.TypeProduct" Width="1.5" PointX="0.75" PointY="1" />
+        <AssociationConnector Association="QuanLyKhoModel.FK__Account__IdRank__160F4887" />
+        <AssociationConnector Association="QuanLyKhoModel.FK__Output__IdCustom__6A30C649" />
+        <AssociationConnector Association="QuanLyKhoModel.FK__Employee__IdRank__36B12243" />
+        <AssociationConnector Association="QuanLyKhoModel.FK__Employee__IdStor__35BCFE0A" />
+        <AssociationConnector Association="QuanLyKhoModel.fk_employee" />
+        <AssociationConnector Association="QuanLyKhoModel.fk_employee_output" />
+        <AssociationConnector Association="QuanLyKhoModel.fk_IdInput" />
+        <AssociationConnector Association="QuanLyKhoModel.fk_suplier" />
+        <AssociationConnector Association="QuanLyKhoModel.FK__InputInfo__IdCon__6FE99F9F" />
+        <AssociationConnector Association="QuanLyKhoModel.FK__OutputInf__IdOut__72C60C4A" />
+        <AssociationConnector Association="QuanLyKhoModel.FK__OutputInf__IdCon__73BA3083" />
+        <AssociationConnector Association="QuanLyKhoModel.FK__Product__IdSupli__2B3F6F97" />
+        <AssociationConnector Association="QuanLyKhoModel.FK__Product__IdType__2A4B4B5E" />
+        <AssociationConnector Association="QuanLyKhoModel.FK__StorageDe__IdPro__5CD6CB2B" />
+        <AssociationConnector Association="QuanLyKhoModel.FK__StorageDe__IdSto__5BE2A6F2" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

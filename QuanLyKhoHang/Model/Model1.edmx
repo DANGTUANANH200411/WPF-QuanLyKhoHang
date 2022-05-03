@@ -1,0 +1,997 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="QuanLyKhoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="varchar" MaxLength="20" />
+          <Property Name="IdRank" Type="int" Nullable="false" />
+          <Property Name="Passwords" Type="varchar" MaxLength="256" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="IdCustomer" />
+          </Key>
+          <Property Name="IdCustomer" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameCustomer" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="varchar" MaxLength="20" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="AddressCus" Type="nvarchar(max)" />
+          <Property Name="ContractDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="IdEmployee" />
+          </Key>
+          <Property Name="IdEmployee" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameEmployee" Type="nvarchar(max)" />
+          <Property Name="Birthday" Type="datetime" />
+          <Property Name="DateOfStart" Type="datetime" />
+          <Property Name="IdRank" Type="int" Nullable="false" />
+          <Property Name="IdStorage" Type="int" Nullable="false" />
+          <Property Name="PhoneNumber" Type="varchar" MaxLength="20" />
+          <Property Name="AddressEmp" Type="nvarchar(max)" />
+          <Property Name="Sex" Type="nvarchar" MaxLength="5" />
+          <Property Name="ImageEmp" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="Input">
+          <Key>
+            <PropertyRef Name="IdInput" />
+          </Key>
+          <Property Name="IdInput" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DateInput" Type="datetime" />
+          <Property Name="IdSuplier" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="InputInfo">
+          <Key>
+            <PropertyRef Name="IdInput" />
+            <PropertyRef Name="IdConsignment" />
+          </Key>
+          <Property Name="IdInput" Type="int" Nullable="false" />
+          <Property Name="IdConsignment" Type="int" Nullable="false" />
+          <Property Name="IdEmployee" Type="int" Nullable="false" />
+          <Property Name="Unit" Type="int" />
+        </EntityType>
+        <EntityType Name="Output">
+          <Key>
+            <PropertyRef Name="IdOutput" />
+          </Key>
+          <Property Name="IdOutput" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DateOutput" Type="datetime" />
+          <Property Name="IdCustomer" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OutputInfo">
+          <Key>
+            <PropertyRef Name="IdOutput" />
+            <PropertyRef Name="IdConsignment" />
+          </Key>
+          <Property Name="IdOutput" Type="int" Nullable="false" />
+          <Property Name="IdConsignment" Type="int" Nullable="false" />
+          <Property Name="IdEmployee" Type="int" Nullable="false" />
+          <Property Name="Unit" Type="int" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="IdProduct" />
+          </Key>
+          <Property Name="IdProduct" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="NameProduct" Type="nvarchar(max)" />
+          <Property Name="IdType" Type="int" Nullable="false" />
+          <Property Name="IdSuplier" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RankEmployee">
+          <Key>
+            <PropertyRef Name="IdRank" />
+          </Key>
+          <Property Name="IdRank" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameRank" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Storage">
+          <Key>
+            <PropertyRef Name="IdStorage" />
+          </Key>
+          <Property Name="IdStorage" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameStorage" Type="nvarchar" MaxLength="50" />
+          <Property Name="AddressStorage" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="StorageDetail">
+          <Key>
+            <PropertyRef Name="IdConsignment" />
+          </Key>
+          <Property Name="IdConsignment" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdStorage" Type="int" Nullable="false" />
+          <Property Name="IdProduct" Type="nvarchar" MaxLength="128" />
+          <Property Name="Unit" Type="int" />
+          <Property Name="MafDate" Type="datetime" />
+          <Property Name="ExpDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Suplier">
+          <Key>
+            <PropertyRef Name="IdSuplier" />
+          </Key>
+          <Property Name="IdSuplier" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameSuplier" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="varchar" MaxLength="20" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="AddressSup" Type="nvarchar(max)" />
+          <Property Name="ContractDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="TypeProduct">
+          <Key>
+            <PropertyRef Name="IdType" />
+          </Key>
+          <Property Name="IdType" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameType" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK__Account__IdRank__160F4887">
+          <End Role="RankEmployee" Type="Self.RankEmployee" Multiplicity="1" />
+          <End Role="Account" Type="Self.Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RankEmployee">
+              <PropertyRef Name="IdRank" />
+            </Principal>
+            <Dependent Role="Account">
+              <PropertyRef Name="IdRank" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Employee__IdRank__36B12243">
+          <End Role="RankEmployee" Type="Self.RankEmployee" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RankEmployee">
+              <PropertyRef Name="IdRank" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="IdRank" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Employee__IdStor__35BCFE0A">
+          <End Role="Storage" Type="Self.Storage" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Storage">
+              <PropertyRef Name="IdStorage" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="IdStorage" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__InputInfo__IdCon__6FE99F9F">
+          <End Role="StorageDetail" Type="Self.StorageDetail" Multiplicity="1" />
+          <End Role="InputInfo" Type="Self.InputInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StorageDetail">
+              <PropertyRef Name="IdConsignment" />
+            </Principal>
+            <Dependent Role="InputInfo">
+              <PropertyRef Name="IdConsignment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Output__IdCustom__6A30C649">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="Output" Type="Self.Output" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="IdCustomer" />
+            </Principal>
+            <Dependent Role="Output">
+              <PropertyRef Name="IdCustomer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OutputInf__IdCon__73BA3083">
+          <End Role="StorageDetail" Type="Self.StorageDetail" Multiplicity="1" />
+          <End Role="OutputInfo" Type="Self.OutputInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StorageDetail">
+              <PropertyRef Name="IdConsignment" />
+            </Principal>
+            <Dependent Role="OutputInfo">
+              <PropertyRef Name="IdConsignment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OutputInf__IdOut__72C60C4A">
+          <End Role="Output" Type="Self.Output" Multiplicity="1" />
+          <End Role="OutputInfo" Type="Self.OutputInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Output">
+              <PropertyRef Name="IdOutput" />
+            </Principal>
+            <Dependent Role="OutputInfo">
+              <PropertyRef Name="IdOutput" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Product__IdSupli__2B3F6F97">
+          <End Role="Suplier" Type="Self.Suplier" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Suplier">
+              <PropertyRef Name="IdSuplier" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="IdSuplier" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Product__IdType__2A4B4B5E">
+          <End Role="TypeProduct" Type="Self.TypeProduct" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeProduct">
+              <PropertyRef Name="IdType" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="IdType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__StorageDe__IdPro__5CD6CB2B">
+          <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+          <End Role="StorageDetail" Type="Self.StorageDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="IdProduct" />
+            </Principal>
+            <Dependent Role="StorageDetail">
+              <PropertyRef Name="IdProduct" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__StorageDe__IdSto__5BE2A6F2">
+          <End Role="Storage" Type="Self.Storage" Multiplicity="1" />
+          <End Role="StorageDetail" Type="Self.StorageDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Storage">
+              <PropertyRef Name="IdStorage" />
+            </Principal>
+            <Dependent Role="StorageDetail">
+              <PropertyRef Name="IdStorage" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="InputInfo" Type="Self.InputInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="IdEmployee" />
+            </Principal>
+            <Dependent Role="InputInfo">
+              <PropertyRef Name="IdEmployee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_employee_output">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="OutputInfo" Type="Self.OutputInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="IdEmployee" />
+            </Principal>
+            <Dependent Role="OutputInfo">
+              <PropertyRef Name="IdEmployee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_IdInput">
+          <End Role="Input" Type="Self.Input" Multiplicity="1" />
+          <End Role="InputInfo" Type="Self.InputInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Input">
+              <PropertyRef Name="IdInput" />
+            </Principal>
+            <Dependent Role="InputInfo">
+              <PropertyRef Name="IdInput" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_suplier">
+          <End Role="Suplier" Type="Self.Suplier" Multiplicity="1" />
+          <End Role="Input" Type="Self.Input" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Suplier">
+              <PropertyRef Name="IdSuplier" />
+            </Principal>
+            <Dependent Role="Input">
+              <PropertyRef Name="IdSuplier" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="QuanLyKhoModelStoreContainer">
+          <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Input" EntityType="Self.Input" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InputInfo" EntityType="Self.InputInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Output" EntityType="Self.Output" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OutputInfo" EntityType="Self.OutputInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RankEmployee" EntityType="Self.RankEmployee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Storage" EntityType="Self.Storage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StorageDetail" EntityType="Self.StorageDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Suplier" EntityType="Self.Suplier" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TypeProduct" EntityType="Self.TypeProduct" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Account__IdRank__160F4887" Association="Self.FK__Account__IdRank__160F4887">
+            <End Role="RankEmployee" EntitySet="RankEmployee" />
+            <End Role="Account" EntitySet="Account" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Employee__IdRank__36B12243" Association="Self.FK__Employee__IdRank__36B12243">
+            <End Role="RankEmployee" EntitySet="RankEmployee" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Employee__IdStor__35BCFE0A" Association="Self.FK__Employee__IdStor__35BCFE0A">
+            <End Role="Storage" EntitySet="Storage" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK__InputInfo__IdCon__6FE99F9F" Association="Self.FK__InputInfo__IdCon__6FE99F9F">
+            <End Role="StorageDetail" EntitySet="StorageDetail" />
+            <End Role="InputInfo" EntitySet="InputInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Output__IdCustom__6A30C649" Association="Self.FK__Output__IdCustom__6A30C649">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Output" EntitySet="Output" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OutputInf__IdCon__73BA3083" Association="Self.FK__OutputInf__IdCon__73BA3083">
+            <End Role="StorageDetail" EntitySet="StorageDetail" />
+            <End Role="OutputInfo" EntitySet="OutputInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OutputInf__IdOut__72C60C4A" Association="Self.FK__OutputInf__IdOut__72C60C4A">
+            <End Role="Output" EntitySet="Output" />
+            <End Role="OutputInfo" EntitySet="OutputInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Product__IdSupli__2B3F6F97" Association="Self.FK__Product__IdSupli__2B3F6F97">
+            <End Role="Suplier" EntitySet="Suplier" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Product__IdType__2A4B4B5E" Association="Self.FK__Product__IdType__2A4B4B5E">
+            <End Role="TypeProduct" EntitySet="TypeProduct" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK__StorageDe__IdPro__5CD6CB2B" Association="Self.FK__StorageDe__IdPro__5CD6CB2B">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="StorageDetail" EntitySet="StorageDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK__StorageDe__IdSto__5BE2A6F2" Association="Self.FK__StorageDe__IdSto__5BE2A6F2">
+            <End Role="Storage" EntitySet="Storage" />
+            <End Role="StorageDetail" EntitySet="StorageDetail" />
+          </AssociationSet>
+          <AssociationSet Name="fk_employee" Association="Self.fk_employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="InputInfo" EntitySet="InputInfo" />
+          </AssociationSet>
+          <AssociationSet Name="fk_employee_output" Association="Self.fk_employee_output">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="OutputInfo" EntitySet="OutputInfo" />
+          </AssociationSet>
+          <AssociationSet Name="fk_IdInput" Association="Self.fk_IdInput">
+            <End Role="Input" EntitySet="Input" />
+            <End Role="InputInfo" EntitySet="InputInfo" />
+          </AssociationSet>
+          <AssociationSet Name="fk_suplier" Association="Self.fk_suplier">
+            <End Role="Suplier" EntitySet="Suplier" />
+            <End Role="Input" EntitySet="Input" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="QuanLyKhoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="QuanLyKhoEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Accounts" EntityType="QuanLyKhoModel.Account" />
+          <EntitySet Name="Customers" EntityType="QuanLyKhoModel.Customer" />
+          <EntitySet Name="Employees" EntityType="QuanLyKhoModel.Employee" />
+          <EntitySet Name="Inputs" EntityType="QuanLyKhoModel.Input" />
+          <EntitySet Name="InputInfoes" EntityType="QuanLyKhoModel.InputInfo" />
+          <EntitySet Name="Outputs" EntityType="QuanLyKhoModel.Output" />
+          <EntitySet Name="OutputInfoes" EntityType="QuanLyKhoModel.OutputInfo" />
+          <EntitySet Name="Products" EntityType="QuanLyKhoModel.Product" />
+          <EntitySet Name="RankEmployees" EntityType="QuanLyKhoModel.RankEmployee" />
+          <EntitySet Name="Storages" EntityType="QuanLyKhoModel.Storage" />
+          <EntitySet Name="StorageDetails" EntityType="QuanLyKhoModel.StorageDetail" />
+          <EntitySet Name="Supliers" EntityType="QuanLyKhoModel.Suplier" />
+          <EntitySet Name="sysdiagrams" EntityType="QuanLyKhoModel.sysdiagram" />
+          <EntitySet Name="TypeProducts" EntityType="QuanLyKhoModel.TypeProduct" />
+          <AssociationSet Name="FK__Account__IdRank__160F4887" Association="QuanLyKhoModel.FK__Account__IdRank__160F4887">
+            <End Role="RankEmployee" EntitySet="RankEmployees" />
+            <End Role="Account" EntitySet="Accounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Output__IdCustom__6A30C649" Association="QuanLyKhoModel.FK__Output__IdCustom__6A30C649">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Output" EntitySet="Outputs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Employee__IdRank__36B12243" Association="QuanLyKhoModel.FK__Employee__IdRank__36B12243">
+            <End Role="RankEmployee" EntitySet="RankEmployees" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Employee__IdStor__35BCFE0A" Association="QuanLyKhoModel.FK__Employee__IdStor__35BCFE0A">
+            <End Role="Storage" EntitySet="Storages" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="fk_employee" Association="QuanLyKhoModel.fk_employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="InputInfo" EntitySet="InputInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="fk_employee_output" Association="QuanLyKhoModel.fk_employee_output">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="OutputInfo" EntitySet="OutputInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="fk_IdInput" Association="QuanLyKhoModel.fk_IdInput">
+            <End Role="Input" EntitySet="Inputs" />
+            <End Role="InputInfo" EntitySet="InputInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="fk_suplier" Association="QuanLyKhoModel.fk_suplier">
+            <End Role="Suplier" EntitySet="Supliers" />
+            <End Role="Input" EntitySet="Inputs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__InputInfo__IdCon__6FE99F9F" Association="QuanLyKhoModel.FK__InputInfo__IdCon__6FE99F9F">
+            <End Role="StorageDetail" EntitySet="StorageDetails" />
+            <End Role="InputInfo" EntitySet="InputInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OutputInf__IdOut__72C60C4A" Association="QuanLyKhoModel.FK__OutputInf__IdOut__72C60C4A">
+            <End Role="Output" EntitySet="Outputs" />
+            <End Role="OutputInfo" EntitySet="OutputInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OutputInf__IdCon__73BA3083" Association="QuanLyKhoModel.FK__OutputInf__IdCon__73BA3083">
+            <End Role="StorageDetail" EntitySet="StorageDetails" />
+            <End Role="OutputInfo" EntitySet="OutputInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Product__IdSupli__2B3F6F97" Association="QuanLyKhoModel.FK__Product__IdSupli__2B3F6F97">
+            <End Role="Suplier" EntitySet="Supliers" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Product__IdType__2A4B4B5E" Association="QuanLyKhoModel.FK__Product__IdType__2A4B4B5E">
+            <End Role="TypeProduct" EntitySet="TypeProducts" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK__StorageDe__IdPro__5CD6CB2B" Association="QuanLyKhoModel.FK__StorageDe__IdPro__5CD6CB2B">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="StorageDetail" EntitySet="StorageDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__StorageDe__IdSto__5BE2A6F2" Association="QuanLyKhoModel.FK__StorageDe__IdSto__5BE2A6F2">
+            <End Role="Storage" EntitySet="Storages" />
+            <End Role="StorageDetail" EntitySet="StorageDetails" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="IdRank" Type="Int32" Nullable="false" />
+          <Property Name="Passwords" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="RankEmployee" Relationship="QuanLyKhoModel.FK__Account__IdRank__160F4887" FromRole="Account" ToRole="RankEmployee" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="IdCustomer" />
+          </Key>
+          <Property Name="IdCustomer" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameCustomer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AddressCus" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ContractDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Outputs" Relationship="QuanLyKhoModel.FK__Output__IdCustom__6A30C649" FromRole="Customer" ToRole="Output" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="IdEmployee" />
+          </Key>
+          <Property Name="IdEmployee" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameEmployee" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Birthday" Type="DateTime" Precision="3" />
+          <Property Name="DateOfStart" Type="DateTime" Precision="3" />
+          <Property Name="IdRank" Type="Int32" Nullable="false" />
+          <Property Name="IdStorage" Type="Int32" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="AddressEmp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Sex" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="ImageEmp" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="RankEmployee" Relationship="QuanLyKhoModel.FK__Employee__IdRank__36B12243" FromRole="Employee" ToRole="RankEmployee" />
+          <NavigationProperty Name="Storage" Relationship="QuanLyKhoModel.FK__Employee__IdStor__35BCFE0A" FromRole="Employee" ToRole="Storage" />
+          <NavigationProperty Name="InputInfoes" Relationship="QuanLyKhoModel.fk_employee" FromRole="Employee" ToRole="InputInfo" />
+          <NavigationProperty Name="OutputInfoes" Relationship="QuanLyKhoModel.fk_employee_output" FromRole="Employee" ToRole="OutputInfo" />
+        </EntityType>
+        <EntityType Name="Input">
+          <Key>
+            <PropertyRef Name="IdInput" />
+          </Key>
+          <Property Name="IdInput" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DateInput" Type="DateTime" Precision="3" />
+          <Property Name="IdSuplier" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="InputInfoes" Relationship="QuanLyKhoModel.fk_IdInput" FromRole="Input" ToRole="InputInfo" />
+          <NavigationProperty Name="Suplier" Relationship="QuanLyKhoModel.fk_suplier" FromRole="Input" ToRole="Suplier" />
+        </EntityType>
+        <EntityType Name="InputInfo">
+          <Key>
+            <PropertyRef Name="IdInput" />
+            <PropertyRef Name="IdConsignment" />
+          </Key>
+          <Property Name="IdInput" Type="Int32" Nullable="false" />
+          <Property Name="IdConsignment" Type="Int32" Nullable="false" />
+          <Property Name="IdEmployee" Type="Int32" Nullable="false" />
+          <Property Name="Unit" Type="Int32" />
+          <NavigationProperty Name="Employee" Relationship="QuanLyKhoModel.fk_employee" FromRole="InputInfo" ToRole="Employee" />
+          <NavigationProperty Name="Input" Relationship="QuanLyKhoModel.fk_IdInput" FromRole="InputInfo" ToRole="Input" />
+          <NavigationProperty Name="StorageDetail" Relationship="QuanLyKhoModel.FK__InputInfo__IdCon__6FE99F9F" FromRole="InputInfo" ToRole="StorageDetail" />
+        </EntityType>
+        <EntityType Name="Output">
+          <Key>
+            <PropertyRef Name="IdOutput" />
+          </Key>
+          <Property Name="IdOutput" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DateOutput" Type="DateTime" Precision="3" />
+          <Property Name="IdCustomer" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Customer" Relationship="QuanLyKhoModel.FK__Output__IdCustom__6A30C649" FromRole="Output" ToRole="Customer" />
+          <NavigationProperty Name="OutputInfoes" Relationship="QuanLyKhoModel.FK__OutputInf__IdOut__72C60C4A" FromRole="Output" ToRole="OutputInfo" />
+        </EntityType>
+        <EntityType Name="OutputInfo">
+          <Key>
+            <PropertyRef Name="IdOutput" />
+            <PropertyRef Name="IdConsignment" />
+          </Key>
+          <Property Name="IdOutput" Type="Int32" Nullable="false" />
+          <Property Name="IdConsignment" Type="Int32" Nullable="false" />
+          <Property Name="IdEmployee" Type="Int32" Nullable="false" />
+          <Property Name="Unit" Type="Int32" />
+          <NavigationProperty Name="Employee" Relationship="QuanLyKhoModel.fk_employee_output" FromRole="OutputInfo" ToRole="Employee" />
+          <NavigationProperty Name="Output" Relationship="QuanLyKhoModel.FK__OutputInf__IdOut__72C60C4A" FromRole="OutputInfo" ToRole="Output" />
+          <NavigationProperty Name="StorageDetail" Relationship="QuanLyKhoModel.FK__OutputInf__IdCon__73BA3083" FromRole="OutputInfo" ToRole="StorageDetail" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="IdProduct" />
+          </Key>
+          <Property Name="IdProduct" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="NameProduct" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IdType" Type="Int32" Nullable="false" />
+          <Property Name="IdSuplier" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Suplier" Relationship="QuanLyKhoModel.FK__Product__IdSupli__2B3F6F97" FromRole="Product" ToRole="Suplier" />
+          <NavigationProperty Name="TypeProduct" Relationship="QuanLyKhoModel.FK__Product__IdType__2A4B4B5E" FromRole="Product" ToRole="TypeProduct" />
+          <NavigationProperty Name="StorageDetails" Relationship="QuanLyKhoModel.FK__StorageDe__IdPro__5CD6CB2B" FromRole="Product" ToRole="StorageDetail" />
+        </EntityType>
+        <EntityType Name="RankEmployee">
+          <Key>
+            <PropertyRef Name="IdRank" />
+          </Key>
+          <Property Name="IdRank" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameRank" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Accounts" Relationship="QuanLyKhoModel.FK__Account__IdRank__160F4887" FromRole="RankEmployee" ToRole="Account" />
+          <NavigationProperty Name="Employees" Relationship="QuanLyKhoModel.FK__Employee__IdRank__36B12243" FromRole="RankEmployee" ToRole="Employee" />
+        </EntityType>
+        <EntityType Name="Storage">
+          <Key>
+            <PropertyRef Name="IdStorage" />
+          </Key>
+          <Property Name="IdStorage" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameStorage" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AddressStorage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Employees" Relationship="QuanLyKhoModel.FK__Employee__IdStor__35BCFE0A" FromRole="Storage" ToRole="Employee" />
+          <NavigationProperty Name="StorageDetails" Relationship="QuanLyKhoModel.FK__StorageDe__IdSto__5BE2A6F2" FromRole="Storage" ToRole="StorageDetail" />
+        </EntityType>
+        <EntityType Name="StorageDetail">
+          <Key>
+            <PropertyRef Name="IdConsignment" />
+          </Key>
+          <Property Name="IdConsignment" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdStorage" Type="Int32" Nullable="false" />
+          <Property Name="IdProduct" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Unit" Type="Int32" />
+          <Property Name="MafDate" Type="DateTime" Precision="3" />
+          <Property Name="ExpDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="InputInfoes" Relationship="QuanLyKhoModel.FK__InputInfo__IdCon__6FE99F9F" FromRole="StorageDetail" ToRole="InputInfo" />
+          <NavigationProperty Name="OutputInfoes" Relationship="QuanLyKhoModel.FK__OutputInf__IdCon__73BA3083" FromRole="StorageDetail" ToRole="OutputInfo" />
+          <NavigationProperty Name="Product" Relationship="QuanLyKhoModel.FK__StorageDe__IdPro__5CD6CB2B" FromRole="StorageDetail" ToRole="Product" />
+          <NavigationProperty Name="Storage" Relationship="QuanLyKhoModel.FK__StorageDe__IdSto__5BE2A6F2" FromRole="StorageDetail" ToRole="Storage" />
+        </EntityType>
+        <EntityType Name="Suplier">
+          <Key>
+            <PropertyRef Name="IdSuplier" />
+          </Key>
+          <Property Name="IdSuplier" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameSuplier" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AddressSup" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ContractDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Inputs" Relationship="QuanLyKhoModel.fk_suplier" FromRole="Suplier" ToRole="Input" />
+          <NavigationProperty Name="Products" Relationship="QuanLyKhoModel.FK__Product__IdSupli__2B3F6F97" FromRole="Suplier" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="TypeProduct">
+          <Key>
+            <PropertyRef Name="IdType" />
+          </Key>
+          <Property Name="IdType" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Products" Relationship="QuanLyKhoModel.FK__Product__IdType__2A4B4B5E" FromRole="TypeProduct" ToRole="Product" />
+        </EntityType>
+        <Association Name="FK__Account__IdRank__160F4887">
+          <End Type="QuanLyKhoModel.RankEmployee" Role="RankEmployee" Multiplicity="1" />
+          <End Type="QuanLyKhoModel.Account" Role="Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RankEmployee">
+              <PropertyRef Name="IdRank" />
+            </Principal>
+            <Dependent Role="Account">
+              <PropertyRef Name="IdRank" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Output__IdCustom__6A30C649">
+          <End Type="QuanLyKhoModel.Customer" Role="Customer" Multiplicity="1" />
+          <End Type="QuanLyKhoModel.Output" Role="Output" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="IdCustomer" />
+            </Principal>
+            <Dependent Role="Output">
+              <PropertyRef Name="IdCustomer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Employee__IdRank__36B12243">
+          <End Type="QuanLyKhoModel.RankEmployee" Role="RankEmployee" Multiplicity="1" />
+          <End Type="QuanLyKhoModel.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RankEmployee">
+              <PropertyRef Name="IdRank" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="IdRank" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Employee__IdStor__35BCFE0A">
+          <End Type="QuanLyKhoModel.Storage" Role="Storage" Multiplicity="1" />
+          <End Type="QuanLyKhoModel.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Storage">
+              <PropertyRef Name="IdStorage" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="IdStorage" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_employee">
+          <End Type="QuanLyKhoModel.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="QuanLyKhoModel.InputInfo" Role="InputInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="IdEmployee" />
+            </Principal>
+            <Dependent Role="InputInfo">
+              <PropertyRef Name="IdEmployee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_employee_output">
+          <End Type="QuanLyKhoModel.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="QuanLyKhoModel.OutputInfo" Role="OutputInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="IdEmployee" />
+            </Principal>
+            <Dependent Role="OutputInfo">
+              <PropertyRef Name="IdEmployee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_IdInput">
+          <End Type="QuanLyKhoModel.Input" Role="Input" Multiplicity="1" />
+          <End Type="QuanLyKhoModel.InputInfo" Role="InputInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Input">
+              <PropertyRef Name="IdInput" />
+            </Principal>
+            <Dependent Role="InputInfo">
+              <PropertyRef Name="IdInput" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_suplier">
+          <End Type="QuanLyKhoModel.Suplier" Role="Suplier" Multiplicity="1" />
+          <End Type="QuanLyKhoModel.Input" Role="Input" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Suplier">
+              <PropertyRef Name="IdSuplier" />
+            </Principal>
+            <Dependent Role="Input">
+              <PropertyRef Name="IdSuplier" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__InputInfo__IdCon__6FE99F9F">
+          <End Type="QuanLyKhoModel.StorageDetail" Role="StorageDetail" Multiplicity="1" />
+          <End Type="QuanLyKhoModel.InputInfo" Role="InputInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StorageDetail">
+              <PropertyRef Name="IdConsignment" />
+            </Principal>
+            <Dependent Role="InputInfo">
+              <PropertyRef Name="IdConsignment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OutputInf__IdOut__72C60C4A">
+          <End Type="QuanLyKhoModel.Output" Role="Output" Multiplicity="1" />
+          <End Type="QuanLyKhoModel.OutputInfo" Role="OutputInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Output">
+              <PropertyRef Name="IdOutput" />
+            </Principal>
+            <Dependent Role="OutputInfo">
+              <PropertyRef Name="IdOutput" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OutputInf__IdCon__73BA3083">
+          <End Type="QuanLyKhoModel.StorageDetail" Role="StorageDetail" Multiplicity="1" />
+          <End Type="QuanLyKhoModel.OutputInfo" Role="OutputInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StorageDetail">
+              <PropertyRef Name="IdConsignment" />
+            </Principal>
+            <Dependent Role="OutputInfo">
+              <PropertyRef Name="IdConsignment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Product__IdSupli__2B3F6F97">
+          <End Type="QuanLyKhoModel.Suplier" Role="Suplier" Multiplicity="1" />
+          <End Type="QuanLyKhoModel.Product" Role="Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Suplier">
+              <PropertyRef Name="IdSuplier" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="IdSuplier" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Product__IdType__2A4B4B5E">
+          <End Type="QuanLyKhoModel.TypeProduct" Role="TypeProduct" Multiplicity="1" />
+          <End Type="QuanLyKhoModel.Product" Role="Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeProduct">
+              <PropertyRef Name="IdType" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="IdType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__StorageDe__IdPro__5CD6CB2B">
+          <End Type="QuanLyKhoModel.Product" Role="Product" Multiplicity="0..1" />
+          <End Type="QuanLyKhoModel.StorageDetail" Role="StorageDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="IdProduct" />
+            </Principal>
+            <Dependent Role="StorageDetail">
+              <PropertyRef Name="IdProduct" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__StorageDe__IdSto__5BE2A6F2">
+          <End Type="QuanLyKhoModel.Storage" Role="Storage" Multiplicity="1" />
+          <End Type="QuanLyKhoModel.StorageDetail" Role="StorageDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Storage">
+              <PropertyRef Name="IdStorage" />
+            </Principal>
+            <Dependent Role="StorageDetail">
+              <PropertyRef Name="IdStorage" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="QuanLyKhoModelStoreContainer" CdmEntityContainer="QuanLyKhoEntities">
+          <EntitySetMapping Name="Accounts">
+            <EntityTypeMapping TypeName="QuanLyKhoModel.Account">
+              <MappingFragment StoreEntitySet="Account">
+                <ScalarProperty Name="Passwords" ColumnName="Passwords" />
+                <ScalarProperty Name="IdRank" ColumnName="IdRank" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="QuanLyKhoModel.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="ContractDate" ColumnName="ContractDate" />
+                <ScalarProperty Name="AddressCus" ColumnName="AddressCus" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="NameCustomer" ColumnName="NameCustomer" />
+                <ScalarProperty Name="IdCustomer" ColumnName="IdCustomer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="QuanLyKhoModel.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="ImageEmp" ColumnName="ImageEmp" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="AddressEmp" ColumnName="AddressEmp" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="IdStorage" ColumnName="IdStorage" />
+                <ScalarProperty Name="IdRank" ColumnName="IdRank" />
+                <ScalarProperty Name="DateOfStart" ColumnName="DateOfStart" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="NameEmployee" ColumnName="NameEmployee" />
+                <ScalarProperty Name="IdEmployee" ColumnName="IdEmployee" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Inputs">
+            <EntityTypeMapping TypeName="QuanLyKhoModel.Input">
+              <MappingFragment StoreEntitySet="Input">
+                <ScalarProperty Name="IdSuplier" ColumnName="IdSuplier" />
+                <ScalarProperty Name="DateInput" ColumnName="DateInput" />
+                <ScalarProperty Name="IdInput" ColumnName="IdInput" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InputInfoes">
+            <EntityTypeMapping TypeName="QuanLyKhoModel.InputInfo">
+              <MappingFragment StoreEntitySet="InputInfo">
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
+                <ScalarProperty Name="IdEmployee" ColumnName="IdEmployee" />
+                <ScalarProperty Name="IdConsignment" ColumnName="IdConsignment" />
+                <ScalarProperty Name="IdInput" ColumnName="IdInput" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Outputs">
+            <EntityTypeMapping TypeName="QuanLyKhoModel.Output">
+              <MappingFragment StoreEntitySet="Output">
+                <ScalarProperty Name="IdCustomer" ColumnName="IdCustomer" />
+                <ScalarProperty Name="DateOutput" ColumnName="DateOutput" />
+                <ScalarProperty Name="IdOutput" ColumnName="IdOutput" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OutputInfoes">
+            <EntityTypeMapping TypeName="QuanLyKhoModel.OutputInfo">
+              <MappingFragment StoreEntitySet="OutputInfo">
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
+                <ScalarProperty Name="IdEmployee" ColumnName="IdEmployee" />
+                <ScalarProperty Name="IdConsignment" ColumnName="IdConsignment" />
+                <ScalarProperty Name="IdOutput" ColumnName="IdOutput" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="QuanLyKhoModel.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="IdSuplier" ColumnName="IdSuplier" />
+                <ScalarProperty Name="IdType" ColumnName="IdType" />
+                <ScalarProperty Name="NameProduct" ColumnName="NameProduct" />
+                <ScalarProperty Name="IdProduct" ColumnName="IdProduct" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RankEmployees">
+            <EntityTypeMapping TypeName="QuanLyKhoModel.RankEmployee">
+              <MappingFragment StoreEntitySet="RankEmployee">
+                <ScalarProperty Name="NameRank" ColumnName="NameRank" />
+                <ScalarProperty Name="IdRank" ColumnName="IdRank" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Storages">
+            <EntityTypeMapping TypeName="QuanLyKhoModel.Storage">
+              <MappingFragment StoreEntitySet="Storage">
+                <ScalarProperty Name="AddressStorage" ColumnName="AddressStorage" />
+                <ScalarProperty Name="NameStorage" ColumnName="NameStorage" />
+                <ScalarProperty Name="IdStorage" ColumnName="IdStorage" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StorageDetails">
+            <EntityTypeMapping TypeName="QuanLyKhoModel.StorageDetail">
+              <MappingFragment StoreEntitySet="StorageDetail">
+                <ScalarProperty Name="ExpDate" ColumnName="ExpDate" />
+                <ScalarProperty Name="MafDate" ColumnName="MafDate" />
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
+                <ScalarProperty Name="IdProduct" ColumnName="IdProduct" />
+                <ScalarProperty Name="IdStorage" ColumnName="IdStorage" />
+                <ScalarProperty Name="IdConsignment" ColumnName="IdConsignment" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Supliers">
+            <EntityTypeMapping TypeName="QuanLyKhoModel.Suplier">
+              <MappingFragment StoreEntitySet="Suplier">
+                <ScalarProperty Name="ContractDate" ColumnName="ContractDate" />
+                <ScalarProperty Name="AddressSup" ColumnName="AddressSup" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="NameSuplier" ColumnName="NameSuplier" />
+                <ScalarProperty Name="IdSuplier" ColumnName="IdSuplier" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="QuanLyKhoModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TypeProducts">
+            <EntityTypeMapping TypeName="QuanLyKhoModel.TypeProduct">
+              <MappingFragment StoreEntitySet="TypeProduct">
+                <ScalarProperty Name="NameType" ColumnName="NameType" />
+                <ScalarProperty Name="IdType" ColumnName="IdType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

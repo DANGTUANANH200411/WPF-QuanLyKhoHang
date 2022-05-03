@@ -1,0 +1,248 @@
+﻿<UserControl x:Class="QuanLyKhoHang.UserControl.Product"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:QuanLyKhoHang.UserControl"
+             mc:Ignorable="d" 
+             
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        DataContext="{StaticResource ProductVM}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <!--Filter-->
+        <materialDesign:Card Grid.Row="0" Margin="5 5 5 0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0">
+                    <materialDesign:Card
+                        HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                          Background="#03a9f4"
+                          Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}">
+                        <StackPanel>
+                            <TextBlock
+                              Margin="16 16 12 8"
+                              FontSize="18"
+                                Text="Chi tiết sản phẩm">
+                            </TextBlock>
+                            <Grid Margin="16 4 16 0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Label Foreground="White" Content="Mã: "></Label>
+                                <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="15"
+                                Text="{Binding IdProduct, UpdateSourceTrigger=PropertyChanged}">
+                                </TextBlock>
+                            </Grid>
+                            <Grid Margin="16 4 16 0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Label Foreground="White" Content="Tên: "></Label>
+                                <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="15"
+                                Text="{Binding NameProduct, UpdateSourceTrigger=PropertyChanged}">
+                                </TextBlock>
+                            </Grid>
+                            <Grid Margin="16 4 16 0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Label Foreground="White" Content="Loại: "></Label>
+                                <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="15"
+                                Text="{Binding TypeProduct, UpdateSourceTrigger=PropertyChanged}">
+                                </TextBlock>
+                            </Grid>
+                            <Grid Margin="16 4 16 0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Label Foreground="White" Content="NCC: "></Label>
+                                <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="15"
+                                Text="{Binding Suplier, UpdateSourceTrigger=PropertyChanged}">
+                                </TextBlock>
+                            </Grid>
+                            <Separator Style="{StaticResource MaterialDesignLightSeparator}" />
+                            <StackPanel
+                                  Orientation="Horizontal"
+                                  HorizontalAlignment="Right">
+                                <Button
+                                    Command="{Binding DeleteCommand}"
+                                    HorizontalAlignment="Right"
+                                    Style="{StaticResource MaterialDesignToolForegroundButton}"
+                                    Width="50"
+                                    materialDesign:RippleAssist.IsCentered="True">
+                                    <materialDesign:PackIcon Kind="Delete" />
+                                </Button>
+                            </StackPanel>
+                        </StackPanel>
+                    </materialDesign:Card>
+                </Grid>
+                <Grid Grid.Column="1" Height="Auto">
+                    <materialDesign:Flipper>
+                        <materialDesign:Flipper.FrontContent>
+                            <Button
+                                Style="{StaticResource MaterialDesignFlatButton}"
+                                Command="{x:Static materialDesign:Flipper.FlipCommand}"
+                                Content="Thêm sản phẩm mới"
+                                Height="100"
+                                HorizontalAlignment="Stretch">
+                            </Button>
+                        </materialDesign:Flipper.FrontContent>
+                        <materialDesign:Flipper.BackContent>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <materialDesign:ColorZone
+                                    Background="LightSkyBlue"
+                                    Padding="3"
+                                    Margin="10 0 0 0">
+                                    <StackPanel
+                                         Orientation="Horizontal">
+                                        <Button
+                                            Style="{StaticResource MaterialDesignToolForegroundButton}"
+                                            Command="{x:Static materialDesign:Flipper.FlipCommand}"
+                                            HorizontalAlignment="Left">
+                                            <materialDesign:PackIcon
+                                              Kind="ArrowLeft"
+                                              HorizontalAlignment="Right" />
+                                        </Button>
+                                        <TextBlock
+                                            VerticalAlignment="Center"
+                                            Text="Quay lại">
+                                        </TextBlock>
+                                    </StackPanel>
+                                </materialDesign:ColorZone>
+                                <Grid
+                                    Grid.Row="1"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Stretch"
+                                    Width="Auto">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Grid Grid.Row="0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="3*"></ColumnDefinition>
+                                            <ColumnDefinition Width="7*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+
+                                        <TextBox
+                                          Text="{Binding NewIdProduct , UpdateSourceTrigger=PropertyChanged}"
+                                          materialDesign:HintAssist.Hint="Mã hàng"
+                                          materialDesign:HintAssist.IsFloating="True"
+                                          Margin="10 10 30 10">
+                                        </TextBox>
+                                        <TextBox
+                                          Text="{Binding NewNameProduct , UpdateSourceTrigger=PropertyChanged}"
+                                          Grid.Column="1"
+                                          materialDesign:HintAssist.Hint="Tên hàng"
+                                          materialDesign:HintAssist.IsFloating="True"
+                                          Margin="10 10 30 10">
+                                        </TextBox>
+                                    </Grid>
+                                    <Grid Grid.Row="1">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="3*"></ColumnDefinition>
+                                            <ColumnDefinition Width="7*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+
+                                        <ComboBox ItemsSource="{Binding ListType}" DisplayMemberPath="NameType" SelectedValuePath="IdType" SelectedValue="{Binding NewTypeProduct}"
+                                          materialDesign:HintAssist.Hint="Loại hàng"
+                                          materialDesign:HintAssist.IsFloating="True"
+                                          Margin="10 10 30 10">
+                                        </ComboBox>
+                                        <ComboBox ItemsSource="{Binding ListSuplier}" DisplayMemberPath="NameSuplier" SelectedValuePath="IdSuplier" SelectedValue="{Binding NewSuplier}"
+                                          Grid.Column="1"
+                                          materialDesign:HintAssist.Hint="Nhà cung ứng"
+                                          materialDesign:HintAssist.IsFloating="True" 
+                                          Margin="10 10 30 10">
+                                        </ComboBox>
+                                    </Grid>
+                                    <Grid Grid.Row="2" Margin="0 15 0 10">
+                                        <Button
+                                            Command="{Binding AddCommand}"
+                                            Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                                            Width="100"
+                                            ToolTip="Resource name: MaterialDesignRaisedAccentButton"
+                                            Content="Thêm">
+                                        </Button>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                        </materialDesign:Flipper.BackContent>
+                    </materialDesign:Flipper>
+                </Grid>
+            </Grid>
+        </materialDesign:Card>
+
+
+        <!--List-->
+        <materialDesign:Card Grid.Row="1" Margin="5 15 5 0" VerticalAlignment="Stretch">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid>
+                    <TextBox
+                        Text="{Binding Path= Filter, UpdateSourceTrigger=PropertyChanged}"
+                        HorizontalAlignment="Left"
+                        Width="200"
+                        Margin="10 5 0 0"
+                      materialDesign:HintAssist.Hint="Tìm kiếm"
+                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Separator 
+                         Margin="5" 
+                         Style="{StaticResource MaterialDesignDarkSeparator}" >
+                    </Separator>
+                </Grid>
+                <ListView Grid.Row="2" ItemsSource="{Binding ListProduct}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Tên sản phẩm" DisplayMemberBinding="{Binding Product.NameProduct}"></GridViewColumn>
+                            <GridViewColumn Header="Mã sản phẩm" DisplayMemberBinding="{Binding Product.IdProduct}"></GridViewColumn>
+                            <GridViewColumn Header="Nhà cung ứng" DisplayMemberBinding="{Binding Suplier}"></GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                    <ListView.GroupStyle>
+                        <GroupStyle>
+                            <GroupStyle.HeaderTemplate>
+                                <DataTemplate>
+                                    <TextBlock FontSize="16" FontWeight="Bold" Style="{StaticResource MaterialDesignHelperTextBlock}"
+                                               Text="{Binding Name}" Foreground="#FFC22A2A"/>
+                                </DataTemplate>
+                            </GroupStyle.HeaderTemplate>
+                        </GroupStyle>
+                    </ListView.GroupStyle>
+                </ListView>
+            </Grid>
+        </materialDesign:Card>
+    </Grid>
+</UserControl>

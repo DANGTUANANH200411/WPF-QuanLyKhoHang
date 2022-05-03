@@ -1,0 +1,1298 @@
+﻿<UserControl x:Class="QuanLyKhoHang.UserControl.InputProduct"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:QuanLyKhoHang.UserControl"
+
+             mc:Ignorable="d" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+             DataContext="{StaticResource InputProductVM}">
+
+    <UserControl.Resources>
+        <Storyboard x:Key="CloseMenu">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="GridMenu">
+                <EasingDoubleKeyFrame KeyTime="0" Value="-300"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="GridBackground">
+                <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="OpenMenu">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="GridMenu">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="-300"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="GridBackground">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </UserControl.Resources>
+    <UserControl.Triggers>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="ButtonClose">
+            <BeginStoryboard x:Name="CloseMenu_BeginStoryboard" Storyboard="{StaticResource CloseMenu}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="ButtonOpen">
+            <BeginStoryboard Storyboard="{StaticResource OpenMenu}"/>
+        </EventTrigger>
+    </UserControl.Triggers>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="auto"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <materialDesign:Card Background="#03a9f4" Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}" Padding="0"  Margin="5 0 5 0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" 
+                               Margin="15 5 0 15"
+                               Style="{StaticResource MaterialDesignBody2TextBlock}"
+                               Text="Thông tin chi tiết phiếu nhập"
+                               FontSize="16">
+                    </TextBlock>
+                    <Grid Grid.Row="1" HorizontalAlignment="Center">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <materialDesign:Card
+                            Margin="0 0 10 0"
+                              Background="#03a9f4"
+                              Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                              Width="220">
+                            <StackPanel>
+                                <Grid Margin="0 5 0 0" Width="100">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label  FontSize="15" Foreground="White" Content="Lô: "></Label>
+                                    <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="15"
+                                Text="{Binding Consignment1, UpdateSourceTrigger=PropertyChanged}">
+                                    </TextBlock>
+                                </Grid>
+                                <Grid Margin="5 4 5 0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                                        <ColumnDefinition Width="100"></ColumnDefinition>
+                                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label VerticalAlignment="Center" Foreground="White" Content="SP: "></Label>
+                                    <ComboBox Grid.Column="1" VerticalAlignment="Center"
+                                ItemsSource="{Binding ProductList}" DisplayMemberPath="NameProduct" SelectedValuePath="IdProduct" SelectedValue="{Binding Product1}">
+                                    </ComboBox>
+                                    <Label Grid.Column="2" VerticalAlignment="Center" Foreground="White" Content="SL: "></Label>
+                                    <TextBox Grid.Column="3" VerticalAlignment="Center"
+                                Text="{Binding TextUnit1 , UpdateSourceTrigger=PropertyChanged}"
+                                    PreviewTextInput="NumberValidationTextBox">
+                                    </TextBox>
+                                </Grid>
+                                <Grid Margin="5 4 5 0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="70"></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label VerticalAlignment="Center" Foreground="White" Content="Kho hàng: "></Label>
+                                    <ComboBox Grid.Column="1" VerticalAlignment="Center"
+                                ItemsSource="{Binding StorageList}" DisplayMemberPath="NameStorage" SelectedValuePath="IdStorage" SelectedValue="{Binding Storage1}" Text="{Binding CheckStorage1}">
+                                    </ComboBox>
+                                </Grid>
+                                <Grid Margin="5 4 5 0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="70"></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label VerticalAlignment="Center" Foreground="White" Content="Phụ trách: "></Label>
+                                    <ComboBox Grid.Column="1" VerticalAlignment="Center"
+                                ItemsSource="{Binding EmployeeList1}" DisplayMemberPath="NameEmployee" SelectedValuePath="IdEmployee" SelectedValue="{Binding Employee1}" Text="{Binding CheckEmployee1}">
+                                    </ComboBox>
+                                </Grid>
+                                <Grid Margin="5 4 5 0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="70"></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label VerticalAlignment="Bottom" Foreground="White" Content="NSX: "></Label>
+                                    <DatePicker SelectedDate="{Binding MafDate1}"
+                                            Focusable="False"
+                                                Grid.Column="1"
+                                                FontSize="10">
+                                        <DatePicker.Resources>
+                                            <Style
+                                          x:Key="CustomCalendarDayButton"
+                                          TargetType="CalendarDayButton"
+                                          BasedOn="{StaticResource MaterialDesignCalendarDayButton}">
+                                                <Setter
+                                            Property="materialDesign:CalendarAssist.SelectionColor"
+                                            Value="#B2F39B" />
+                                                <Setter
+                                            Property="materialDesign:CalendarAssist.SelectionForegroundColor"
+                                            Value="Black" />
+                                            </Style>
+                                            <Style
+                                          x:Key="CustomCalendarButton"
+                                          TargetType="CalendarButton"
+                                          BasedOn="{StaticResource MaterialDesignCalendarButton}">
+                                                <Setter
+                                            Property="materialDesign:CalendarAssist.SelectionColor"
+                                            Value="#B2F39B" />
+                                                <Setter
+                                            Property="materialDesign:CalendarAssist.SelectionForegroundColor"
+                                            Value="Black" />
+                                            </Style>
+                                            <Style
+                                          x:Key="CustomCalendar"
+                                          TargetType="{x:Type Calendar}"
+                                          BasedOn="{StaticResource MaterialDesignDatePickerCalendarPortrait}">
+                                                <Setter
+                                            Property="Background"
+                                            Value="#343C3F" />
+                                                <Setter
+                                            Property="Foreground"
+                                            Value="White" />
+                                                <Setter
+                                            Property="materialDesign:CalendarAssist.HeaderBackground"
+                                            Value="#A2E9FF" />
+                                                <Setter
+                                            Property="materialDesign:CalendarAssist.HeaderForeground"
+                                            Value="Black" />
+                                                <Setter
+                                            Property="CalendarDayButtonStyle"
+                                            Value="{StaticResource CustomCalendarDayButton}" />
+                                                <Setter
+                                            Property="CalendarButtonStyle"
+                                            Value="{StaticResource CustomCalendarButton}" />
+                                            </Style>
+                                            <Style
+                                          TargetType="DatePicker"
+                                          BasedOn="{StaticResource MaterialDesignFloatingHintDatePicker}">
+                                                <Setter
+                                            Property="CalendarStyle"
+                                            Value="{StaticResource CustomCalendar}" />
+                                            </Style>
+                                        </DatePicker.Resources>
+                                    </DatePicker>
+                                </Grid>
+                                <Grid Margin="5 4 5 0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="70"></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label VerticalAlignment="Bottom" Foreground="White" Content="HSD: "></Label>
+                                    <DatePicker SelectedDate="{Binding ExpDate1}"
+                                            Focusable="False"
+                                                Grid.Column="1"
+                                                FontSize="10">
+                                        <DatePicker.Resources>
+                                            <Style
+                                          x:Key="CustomCalendarDayButton"
+                                          TargetType="CalendarDayButton"
+                                          BasedOn="{StaticResource MaterialDesignCalendarDayButton}">
+                                                <Setter
+                                            Property="materialDesign:CalendarAssist.SelectionColor"
+                                            Value="#B2F39B" />
+                                                <Setter
+                                            Property="materialDesign:CalendarAssist.SelectionForegroundColor"
+                                            Value="Black" />
+                                            </Style>
+                                            <Style
+                                          x:Key="CustomCalendarButton"
+                                          TargetType="CalendarButton"
+                                          BasedOn="{StaticResource MaterialDesignCalendarButton}">
+                                                <Setter
+                                            Property="materialDesign:CalendarAssist.SelectionColor"
+                                            Value="#B2F39B" />
+                                                <Setter
+                                            Property="materialDesign:CalendarAssist.SelectionForegroundColor"
+                                            Value="Black" />
+                                            </Style>
+                                            <Style
+                                          x:Key="CustomCalendar"
+                                          TargetType="{x:Type Calendar}"
+                                          BasedOn="{StaticResource MaterialDesignDatePickerCalendarPortrait}">
+                                                <Setter
+                                            Property="Background"
+                                            Value="#343C3F" />
+                                                <Setter
+                                            Property="Foreground"
+                                            Value="White" />
+                                                <Setter
+                                            Property="materialDesign:CalendarAssist.HeaderBackground"
+                                            Value="#A2E9FF" />
+                                                <Setter
+                                            Property="materialDesign:CalendarAssist.HeaderForeground"
+                                            Value="Black" />
+                                                <Setter
+                                            Property="CalendarDayButtonStyle"
+                                            Value="{StaticResource CustomCalendarDayButton}" />
+                                                <Setter
+                                            Property="CalendarButtonStyle"
+                                            Value="{StaticResource CustomCalendarButton}" />
+                                            </Style>
+                                            <Style
+                                          TargetType="DatePicker"
+                                          BasedOn="{StaticResource MaterialDesignFloatingHintDatePicker}">
+                                                <Setter
+                                            Property="CalendarStyle"
+                                            Value="{StaticResource CustomCalendar}" />
+                                            </Style>
+                                        </DatePicker.Resources>
+                                    </DatePicker>
+                                </Grid>
+                                <Button
+                                    Margin="0 10 0 0"
+                                    Command="{Binding EditCommand1}"
+                                            Style="{StaticResource MaterialDesignToolForegroundButton}"
+                                            HorizontalAlignment="Center">
+                                    <materialDesign:PackIcon
+                                              Kind="Wrench"
+                                            Foreground="Green"/>
+                                </Button>
+                            </StackPanel>
+                        </materialDesign:Card>
+
+                        <materialDesign:Card Grid.Column="1"
+                                             Margin="0 0 10 0"
+                              Background="#03a9f4"
+                              Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                              Width="220">
+                            <StackPanel>
+                                <Grid Margin="0 5 0 0" Width="100">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label  FontSize="15" Foreground="White" Content="Lô: "></Label>
+                                    <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="15"
+                                Text="{Binding Consignment2, UpdateSourceTrigger=PropertyChanged}">
+                                    </TextBlock>
+                                </Grid>
+                                <Grid Margin="5 4 5 0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                                        <ColumnDefinition Width="100"></ColumnDefinition>
+                                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label VerticalAlignment="Center" Foreground="White" Content="SP: "></Label>
+                                    <ComboBox Grid.Column="1" VerticalAlignment="Center"
+                                ItemsSource="{Binding ProductList}" DisplayMemberPath="NameProduct" SelectedValuePath="IdProduct" SelectedValue="{Binding Product2}">
+                                    </ComboBox>
+                                    <Label Grid.Column="2" VerticalAlignment="Center" Foreground="White" Content="SL: "></Label>
+                                    <TextBox Grid.Column="3" VerticalAlignment="Center"
+                                Text="{Binding TextUnit2 , UpdateSourceTrigger=PropertyChanged}"
+                                    PreviewTextInput="NumberValidationTextBox">
+                                    </TextBox>
+                                </Grid>
+                                <Grid Margin="5 4 5 0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="70"></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label VerticalAlignment="Center" Foreground="White" Content="Kho hàng: "></Label>
+                                    <ComboBox Grid.Column="1" VerticalAlignment="Center"
+                                ItemsSource="{Binding StorageList}" DisplayMemberPath="NameStorage" SelectedValuePath="IdStorage" SelectedValue="{Binding Storage2}" Text="{Binding CheckStorage2}">
+                                    </ComboBox>
+                                </Grid>
+                                <Grid Margin="5 4 5 0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="70"></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label VerticalAlignment="Center" Foreground="White" Content="Phụ trách: "></Label>
+                                    <ComboBox Grid.Column="1" VerticalAlignment="Center"
+                                ItemsSource="{Binding EmployeeList2}" DisplayMemberPath="NameEmployee" SelectedValuePath="IdEmployee" SelectedValue="{Binding Employee2}" Text="{Binding CheckEmployee2}">
+                                    </ComboBox>
+                                </Grid>
+                                <Grid Margin="5 4 5 0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="70"></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label VerticalAlignment="Bottom" Foreground="White" Content="NSX: "></Label>
+                                    <DatePicker SelectedDate="{Binding MafDate2}"
+                                            Focusable="False"
+                                                Grid.Column="1"
+                                                FontSize="10">
+                                        <DatePicker.Resources>
+                                            <Style
+                                          x:Key="CustomCalendarDayButton"
+                                          TargetType="CalendarDayButton"
+                                          BasedOn="{StaticResource MaterialDesignCalendarDayButton}">
+                                                <Setter
+                                            Property="materialDesign:CalendarAssist.SelectionColor"
+                                            Value="#B2F39B" />
+                                                <Setter
+                                            Property="materialDesign:CalendarAssist.SelectionForegroundColor"
+                                            Value="Black" />
+                                            </Style>
+                                            <Style
+                                          x:Key="CustomCalendarButton"
+                                          TargetType="CalendarButton"
+                                          BasedOn="{StaticResource MaterialDesignCalendarButton}">
+                                                <Setter
+                                            Property="materialDesign:CalendarAssist.SelectionColor"
+                                            Value="#B2F39B" />
+                                                <Setter
+                                            Property="materialDesign:CalendarAssist.SelectionForegroundColor"
+                                            Value="Black" />
+                                            </Style>
+                                            <Style
+                                          x:Key="CustomCalendar"
+                                          TargetType="{x:Type Calendar}"
+                                          BasedOn="{StaticResource MaterialDesignDatePickerCalendarPortrait}">
+                                                <Setter
+                                            Property="Background"
+                                            Value="#343C3F" />
+                                                <Setter
+                                            Property="Foreground"
+                                            Value="White" />
+                                                <Setter
+                                            Property="materialDesign:CalendarAssist.HeaderBackground"
+                                            Value="#A2E9FF" />
+                                                <Setter
+                                            Property="materialDesign:CalendarAssist.HeaderForeground"
+                                            Value="Black" />
+                                                <Setter
+                                            Property="CalendarDayButtonStyle"
+                                            Value="{StaticResource CustomCalendarDayButton}" />
+                                                <Setter
+                                            Property="CalendarButtonStyle"
+                                            Value="{StaticResource CustomCalendarButton}" />
+                                            </Style>
+                                            <Style
+                                          TargetType="DatePicker"
+                                          BasedOn="{StaticResource MaterialDesignFloatingHintDatePicker}">
+                                                <Setter
+                                            Property="CalendarStyle"
+                                            Value="{StaticResource CustomCalendar}" />
+                                            </Style>
+                                        </DatePicker.Resources>
+                                    </DatePicker>
+                                </Grid>
+                                <Grid Margin="5 4 5 0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="70"></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label VerticalAlignment="Bottom" Foreground="White" Content="HSD: "></Label>
+                                    <DatePicker SelectedDate="{Binding ExpDate2}"
+                                            Focusable="False"
+                                                Grid.Column="1"
+                                                FontSize="10">
+                                        <DatePicker.Resources>
+                                            <Style
+                                          x:Key="CustomCalendarDayButton"
+                                          TargetType="CalendarDayButton"
+                                          BasedOn="{StaticResource MaterialDesignCalendarDayButton}">
+                                                <Setter
+                                            Property="materialDesign:CalendarAssist.SelectionColor"
+                                            Value="#B2F39B" />
+                                                <Setter
+                                            Property="materialDesign:CalendarAssist.SelectionForegroundColor"
+                                            Value="Black" />
+                                            </Style>
+                                            <Style
+                                          x:Key="CustomCalendarButton"
+                                          TargetType="CalendarButton"
+                                          BasedOn="{StaticResource MaterialDesignCalendarButton}">
+                                                <Setter
+                                            Property="materialDesign:CalendarAssist.SelectionColor"
+                                            Value="#B2F39B" />
+                                                <Setter
+                                            Property="materialDesign:CalendarAssist.SelectionForegroundColor"
+                                            Value="Black" />
+                                            </Style>
+                                            <Style
+                                          x:Key="CustomCalendar"
+                                          TargetType="{x:Type Calendar}"
+                                          BasedOn="{StaticResource MaterialDesignDatePickerCalendarPortrait}">
+                                                <Setter
+                                            Property="Background"
+                                            Value="#343C3F" />
+                                                <Setter
+                                            Property="Foreground"
+                                            Value="White" />
+                                                <Setter
+                                            Property="materialDesign:CalendarAssist.HeaderBackground"
+                                            Value="#A2E9FF" />
+                                                <Setter
+                                            Property="materialDesign:CalendarAssist.HeaderForeground"
+                                            Value="Black" />
+                                                <Setter
+                                            Property="CalendarDayButtonStyle"
+                                            Value="{StaticResource CustomCalendarDayButton}" />
+                                                <Setter
+                                            Property="CalendarButtonStyle"
+                                            Value="{StaticResource CustomCalendarButton}" />
+                                            </Style>
+                                            <Style
+                                          TargetType="DatePicker"
+                                          BasedOn="{StaticResource MaterialDesignFloatingHintDatePicker}">
+                                                <Setter
+                                            Property="CalendarStyle"
+                                            Value="{StaticResource CustomCalendar}" />
+                                            </Style>
+                                        </DatePicker.Resources>
+                                    </DatePicker>
+                                </Grid>
+                                <Button
+                                    Margin="0 10 0 0"
+                                    Command="{Binding EditCommand2}"
+                                            Style="{StaticResource MaterialDesignToolForegroundButton}"
+                                            HorizontalAlignment="Center">
+                                    <materialDesign:PackIcon
+                                              Kind="Wrench"
+                                            Foreground="Green"/>
+                                </Button>
+                            </StackPanel>
+                        </materialDesign:Card>
+
+                        <materialDesign:Card Grid.Column="2"
+                              Background="#03a9f4"
+                              Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                              Width="220">
+                            <StackPanel>
+                                <Grid Margin="0 5 0 0" Width="100">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label  FontSize="15" Foreground="White" Content="Lô: "></Label>
+                                    <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="15"
+                                Text="{Binding Consignment3, UpdateSourceTrigger=PropertyChanged}">
+                                    </TextBlock>
+                                </Grid>
+                                <Grid Margin="5 4 5 0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                                        <ColumnDefinition Width="100"></ColumnDefinition>
+                                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label VerticalAlignment="Center" Foreground="White" Content="SP: "></Label>
+                                    <ComboBox Grid.Column="1" VerticalAlignment="Center"
+                                ItemsSource="{Binding ProductList}" DisplayMemberPath="NameProduct" SelectedValuePath="IdProduct" SelectedValue="{Binding Product3}">
+                                    </ComboBox>
+                                    <Label Grid.Column="2" VerticalAlignment="Center" Foreground="White" Content="SL: "></Label>
+                                    <TextBox Grid.Column="3" VerticalAlignment="Center"
+                                Text="{Binding TextUnit3, UpdateSourceTrigger=PropertyChanged}"
+                                    PreviewTextInput="NumberValidationTextBox">
+                                    </TextBox>
+                                </Grid>
+                                <Grid Margin="5 4 5 0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="70"></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label VerticalAlignment="Center" Foreground="White" Content="Kho hàng: "></Label>
+                                    <ComboBox Grid.Column="1" VerticalAlignment="Center"
+                                ItemsSource="{Binding StorageList}" DisplayMemberPath="NameStorage" SelectedValuePath="IdStorage" SelectedValue="{Binding Storage3}" Text="{Binding CheckStorage3}">
+                                    </ComboBox>
+                                </Grid>
+                                <Grid Margin="5 4 5 0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="70"></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label VerticalAlignment="Center" Foreground="White" Content="Phụ trách: "></Label>
+                                    <ComboBox Grid.Column="1" VerticalAlignment="Center"
+                                ItemsSource="{Binding EmployeeList3}" DisplayMemberPath="NameEmployee" SelectedValuePath="IdEmployee" SelectedValue="{Binding Employee3}" Text="{Binding CheckEmployee3}">
+                                    </ComboBox>
+                                </Grid>
+                                <Grid Margin="5 4 5 0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="70"></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label VerticalAlignment="Bottom" Foreground="White" Content="NSX: "></Label>
+                                    <DatePicker SelectedDate="{Binding MafDate3}"
+                                            Focusable="False"
+                                                Grid.Column="1"
+                                                FontSize="10">
+                                        <DatePicker.Resources>
+                                            <Style
+                                          x:Key="CustomCalendarDayButton"
+                                          TargetType="CalendarDayButton"
+                                          BasedOn="{StaticResource MaterialDesignCalendarDayButton}">
+                                                <Setter
+                                            Property="materialDesign:CalendarAssist.SelectionColor"
+                                            Value="#B2F39B" />
+                                                <Setter
+                                            Property="materialDesign:CalendarAssist.SelectionForegroundColor"
+                                            Value="Black" />
+                                            </Style>
+                                            <Style
+                                          x:Key="CustomCalendarButton"
+                                          TargetType="CalendarButton"
+                                          BasedOn="{StaticResource MaterialDesignCalendarButton}">
+                                                <Setter
+                                            Property="materialDesign:CalendarAssist.SelectionColor"
+                                            Value="#B2F39B" />
+                                                <Setter
+                                            Property="materialDesign:CalendarAssist.SelectionForegroundColor"
+                                            Value="Black" />
+                                            </Style>
+                                            <Style
+                                          x:Key="CustomCalendar"
+                                          TargetType="{x:Type Calendar}"
+                                          BasedOn="{StaticResource MaterialDesignDatePickerCalendarPortrait}">
+                                                <Setter
+                                            Property="Background"
+                                            Value="#343C3F" />
+                                                <Setter
+                                            Property="Foreground"
+                                            Value="White" />
+                                                <Setter
+                                            Property="materialDesign:CalendarAssist.HeaderBackground"
+                                            Value="#A2E9FF" />
+                                                <Setter
+                                            Property="materialDesign:CalendarAssist.HeaderForeground"
+                                            Value="Black" />
+                                                <Setter
+                                            Property="CalendarDayButtonStyle"
+                                            Value="{StaticResource CustomCalendarDayButton}" />
+                                                <Setter
+                                            Property="CalendarButtonStyle"
+                                            Value="{StaticResource CustomCalendarButton}" />
+                                            </Style>
+                                            <Style
+                                          TargetType="DatePicker"
+                                          BasedOn="{StaticResource MaterialDesignFloatingHintDatePicker}">
+                                                <Setter
+                                            Property="CalendarStyle"
+                                            Value="{StaticResource CustomCalendar}" />
+                                            </Style>
+                                        </DatePicker.Resources>
+                                    </DatePicker>
+                                </Grid>
+                                <Grid Margin="5 4 5 0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="70"></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label VerticalAlignment="Bottom" Foreground="White" Content="HSD: "></Label>
+                                    <DatePicker SelectedDate="{Binding ExpDate3}"
+                                            Focusable="False"
+                                                Grid.Column="1"
+                                                FontSize="10">
+                                        <DatePicker.Resources>
+                                            <Style
+                                          x:Key="CustomCalendarDayButton"
+                                          TargetType="CalendarDayButton"
+                                          BasedOn="{StaticResource MaterialDesignCalendarDayButton}">
+                                                <Setter
+                                            Property="materialDesign:CalendarAssist.SelectionColor"
+                                            Value="#B2F39B" />
+                                                <Setter
+                                            Property="materialDesign:CalendarAssist.SelectionForegroundColor"
+                                            Value="Black" />
+                                            </Style>
+                                            <Style
+                                          x:Key="CustomCalendarButton"
+                                          TargetType="CalendarButton"
+                                          BasedOn="{StaticResource MaterialDesignCalendarButton}">
+                                                <Setter
+                                            Property="materialDesign:CalendarAssist.SelectionColor"
+                                            Value="#B2F39B" />
+                                                <Setter
+                                            Property="materialDesign:CalendarAssist.SelectionForegroundColor"
+                                            Value="Black" />
+                                            </Style>
+                                            <Style
+                                          x:Key="CustomCalendar"
+                                          TargetType="{x:Type Calendar}"
+                                          BasedOn="{StaticResource MaterialDesignDatePickerCalendarPortrait}">
+                                                <Setter
+                                            Property="Background"
+                                            Value="#343C3F" />
+                                                <Setter
+                                            Property="Foreground"
+                                            Value="White" />
+                                                <Setter
+                                            Property="materialDesign:CalendarAssist.HeaderBackground"
+                                            Value="#A2E9FF" />
+                                                <Setter
+                                            Property="materialDesign:CalendarAssist.HeaderForeground"
+                                            Value="Black" />
+                                                <Setter
+                                            Property="CalendarDayButtonStyle"
+                                            Value="{StaticResource CustomCalendarDayButton}" />
+                                                <Setter
+                                            Property="CalendarButtonStyle"
+                                            Value="{StaticResource CustomCalendarButton}" />
+                                            </Style>
+                                            <Style
+                                          TargetType="DatePicker"
+                                          BasedOn="{StaticResource MaterialDesignFloatingHintDatePicker}">
+                                                <Setter
+                                            Property="CalendarStyle"
+                                            Value="{StaticResource CustomCalendar}" />
+                                            </Style>
+                                        </DatePicker.Resources>
+                                    </DatePicker>
+                                </Grid>
+                                <Button
+                                    Margin="0 10 0 0"
+                                    Command="{Binding EditCommand3}"
+                                            Style="{StaticResource MaterialDesignToolForegroundButton}"
+                                            HorizontalAlignment="Center">
+                                    <materialDesign:PackIcon
+                                              Kind="Wrench"
+                                            Foreground="Green"/>
+                                </Button>
+                            </StackPanel>
+                        </materialDesign:Card>
+                    </Grid>
+                    <StackPanel Grid.Row="2"
+                              Orientation="Horizontal"
+                              Margin="16 0 0 0"
+                              HorizontalAlignment="Right">
+                        <Button
+                            Command="{Binding DeleteCommand}"
+                            HorizontalAlignment="Right"
+                            Style="{StaticResource MaterialDesignToolForegroundButton}"
+                            Width="30"
+                            Padding="2 0 2 0"
+                            materialDesign:RippleAssist.IsCentered="True">
+                            <materialDesign:PackIcon Kind="Trash" Foreground="Red"/>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </materialDesign:Card>
+            <materialDesign:Card Grid.Row="1" Margin="5 15 5 0" VerticalAlignment="Stretch">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid>
+                        <TextBox
+                        Text="{Binding Path= Filter, UpdateSourceTrigger=PropertyChanged}"
+                        HorizontalAlignment="Left"
+                        Width="200"
+                        Margin="10 5 0 0"
+                      materialDesign:HintAssist.Hint="Tìm kiếm"
+                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <Separator 
+                         Margin="5" 
+                         Style="{StaticResource MaterialDesignDarkSeparator}" >
+                        </Separator>
+                    </Grid>
+                    <ListView Grid.Row="2" ItemsSource="{Binding ListInputInfo}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Mã phiếu nhập" DisplayMemberBinding="{Binding Input.IdInput}"></GridViewColumn>
+                                <GridViewColumn Header="Ngày nhập hàng" DisplayMemberBinding="{Binding Input.DateInput, StringFormat='dd/MM/yyyy'}"></GridViewColumn>
+                                <GridViewColumn Header="Nhà cung ứng" DisplayMemberBinding="{Binding NameSuplier}"></GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+            </materialDesign:Card>
+        </Grid>
+
+        <Grid Grid.Column="1">
+            <Grid x:Name="GridBackground" Background="#55313131" Opacity="0"/>
+            <Grid  HorizontalAlignment="Right" VerticalAlignment="Top">
+                <Button x:Name="ButtonOpen" Background="Green"  BorderBrush="{x:Null}" Width="50" Height="50" Padding="0" Content="Nhập" FontSize="20">
+                </Button>
+            </Grid>
+            <Grid x:Name="GridMenu" Width="300" HorizontalAlignment="Right" Margin="0 0 -300 0" Background="White" RenderTransformOrigin="0.5,0.5">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="39*"/>
+                </Grid.RowDefinitions>
+                <Grid.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Grid.RenderTransform>
+                <Grid Grid.RowSpan="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid Margin="0 5 0 10">
+                        <ComboBox ItemsSource="{Binding ListSuplier}" DisplayMemberPath="NameSuplier" SelectedValuePath="IdSuplier" SelectedValue="{Binding NewSuplier}" SelectedItem="{Binding SelectedSuplier}"
+                          Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                          materialDesign:TextFieldAssist.HasClearButton="True"
+                          materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource SecondaryHueMidBrush}"
+                          materialDesign:HintAssist.Hint="Nhà cung ứng"
+                          Width="200">
+                        </ComboBox>
+                    </Grid>
+                    <materialDesign:Card Grid.Row="1"
+                              Background="ForestGreen"
+                              Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                             Margin="5 10 5 5">
+                        <StackPanel>
+                            <TextBlock VerticalAlignment="Center" FontSize="15" Margin="16 0 12 0"
+                                Text="Sản phẩm 1">
+                            </TextBlock>
+                            <Grid Margin="16 0 16 2" VerticalAlignment="Center">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <ComboBox ItemsSource="{Binding ListStorage}" DisplayMemberPath="NameStorage" SelectedValuePath="IdStorage" SelectedValue="{Binding NewStorage1}" Text="{Binding TestStorage1}"
+                                    Height="40" Margin="5 0 5 0"
+                                      materialDesign:HintAssist.Hint="Kho chứa"
+                                      Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                          materialDesign:TextFieldAssist.HasClearButton="True"
+                          materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource SecondaryHueMidBrush}">
+                                </ComboBox>
+                                <ComboBox  ItemsSource="{Binding ListEmployee1}" DisplayMemberPath="NameEmployee" SelectedValuePath="IdEmployee" SelectedValue="{Binding NewEmployee1}" Text="{Binding TestEmployee1}"
+                                    Height="40" Margin="5 0 5 0" Grid.Column="1"
+                                      materialDesign:HintAssist.Hint="NV phụ trách"
+                                      Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                          materialDesign:TextFieldAssist.HasClearButton="True"
+                          materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource SecondaryHueMidBrush}">
+                                </ComboBox>
+                            </Grid>
+                            <Grid Margin="16 0 16 2" VerticalAlignment="Center">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <ComboBox  ItemsSource="{Binding ListProduct}" DisplayMemberPath="NameProduct" SelectedValuePath="IdProduct" SelectedValue="{Binding NewProduct1}"
+                                    Height="40" Margin="5 0 5 0"
+                                      materialDesign:HintAssist.Hint="Tên sản phẩm"
+                                      Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                          materialDesign:TextFieldAssist.HasClearButton="True"
+                          materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource SecondaryHueMidBrush}">
+                                </ComboBox>
+                                <TextBox Text="{Binding TestUnit1 , UpdateSourceTrigger=PropertyChanged}"
+                                    PreviewTextInput="NumberValidationTextBox"
+                                    Grid.Column="1" Margin="5 0 5 0"
+                                  materialDesign:HintAssist.Hint="Số lượng nhập"
+                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                                    materialDesign:TextFieldAssist.HasClearButton="True"
+                          materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource SecondaryHueMidBrush}"/>
+                            </Grid>
+                            <Grid Margin="16 0 16 2" VerticalAlignment="Center">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <DatePicker SelectedDate="{Binding NewMafDate1}"
+                                            Focusable="False"
+                                      Margin="5 0 5 2"
+                                      materialDesign:HintAssist.Hint="Ngày sản xuất">
+                                    <DatePicker.Resources>
+                                        <Style
+                                          x:Key="CustomCalendarDayButton"
+                                          TargetType="CalendarDayButton"
+                                          BasedOn="{StaticResource MaterialDesignCalendarDayButton}">
+                                            <Setter
+                                            Property="materialDesign:CalendarAssist.SelectionColor"
+                                            Value="#B2F39B" />
+                                            <Setter
+                                            Property="materialDesign:CalendarAssist.SelectionForegroundColor"
+                                            Value="Black" />
+                                        </Style>
+                                        <Style
+                                          x:Key="CustomCalendarButton"
+                                          TargetType="CalendarButton"
+                                          BasedOn="{StaticResource MaterialDesignCalendarButton}">
+                                            <Setter
+                                            Property="materialDesign:CalendarAssist.SelectionColor"
+                                            Value="#B2F39B" />
+                                            <Setter
+                                            Property="materialDesign:CalendarAssist.SelectionForegroundColor"
+                                            Value="Black" />
+                                        </Style>
+                                        <Style
+                                          x:Key="CustomCalendar"
+                                          TargetType="{x:Type Calendar}"
+                                          BasedOn="{StaticResource MaterialDesignDatePickerCalendarPortrait}">
+                                            <Setter
+                                            Property="Background"
+                                            Value="#343C3F" />
+                                            <Setter
+                                            Property="Foreground"
+                                            Value="White" />
+                                            <Setter
+                                            Property="materialDesign:CalendarAssist.HeaderBackground"
+                                            Value="#A2E9FF" />
+                                            <Setter
+                                            Property="materialDesign:CalendarAssist.HeaderForeground"
+                                            Value="Black" />
+                                            <Setter
+                                            Property="CalendarDayButtonStyle"
+                                            Value="{StaticResource CustomCalendarDayButton}" />
+                                            <Setter
+                                            Property="CalendarButtonStyle"
+                                            Value="{StaticResource CustomCalendarButton}" />
+                                        </Style>
+                                        <Style
+                                          TargetType="DatePicker"
+                                          BasedOn="{StaticResource MaterialDesignFloatingHintDatePicker}">
+                                            <Setter
+                                            Property="CalendarStyle"
+                                            Value="{StaticResource CustomCalendar}" />
+                                        </Style>
+                                    </DatePicker.Resources>
+                                </DatePicker>
+                                <DatePicker SelectedDate="{Binding NewExpDate1, StringFormat='yyyy-MM-dd'}"
+                                            Focusable="False"
+                                    Grid.Column="1"
+                                      Margin="5 0 5 2"
+                                      materialDesign:HintAssist.Hint="Hạn sử dụng">
+                                    <DatePicker.Resources>
+                                        <Style
+                                          x:Key="CustomCalendarDayButton"
+                                          TargetType="CalendarDayButton"
+                                          BasedOn="{StaticResource MaterialDesignCalendarDayButton}">
+                                            <Setter
+                                            Property="materialDesign:CalendarAssist.SelectionColor"
+                                            Value="#B2F39B" />
+                                            <Setter
+                                            Property="materialDesign:CalendarAssist.SelectionForegroundColor"
+                                            Value="Black" />
+                                        </Style>
+                                        <Style
+                                          x:Key="CustomCalendarButton"
+                                          TargetType="CalendarButton"
+                                          BasedOn="{StaticResource MaterialDesignCalendarButton}">
+                                            <Setter
+                                            Property="materialDesign:CalendarAssist.SelectionColor"
+                                            Value="#B2F39B" />
+                                            <Setter
+                                            Property="materialDesign:CalendarAssist.SelectionForegroundColor"
+                                            Value="Black" />
+                                        </Style>
+                                        <Style
+                                          x:Key="CustomCalendar"
+                                          TargetType="{x:Type Calendar}"
+                                          BasedOn="{StaticResource MaterialDesignDatePickerCalendarPortrait}">
+                                            <Setter
+                                            Property="Background"
+                                            Value="#343C3F" />
+                                            <Setter
+                                            Property="Foreground"
+                                            Value="White" />
+                                            <Setter
+                                            Property="materialDesign:CalendarAssist.HeaderBackground"
+                                            Value="#A2E9FF" />
+                                            <Setter
+                                            Property="materialDesign:CalendarAssist.HeaderForeground"
+                                            Value="Black" />
+                                            <Setter
+                                            Property="CalendarDayButtonStyle"
+                                            Value="{StaticResource CustomCalendarDayButton}" />
+                                            <Setter
+                                            Property="CalendarButtonStyle"
+                                            Value="{StaticResource CustomCalendarButton}" />
+                                        </Style>
+                                        <Style
+                                          TargetType="DatePicker"
+                                          BasedOn="{StaticResource MaterialDesignFloatingHintDatePicker}">
+                                            <Setter
+                                            Property="CalendarStyle"
+                                            Value="{StaticResource CustomCalendar}" />
+                                        </Style>
+                                    </DatePicker.Resources>
+                                </DatePicker>
+                            </Grid>
+                        </StackPanel>
+                    </materialDesign:Card>
+                    <materialDesign:Card Grid.Row="2"
+                              Background="ForestGreen"
+                              Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                             Margin="5 10 5 5">
+                        <StackPanel>
+                            <TextBlock VerticalAlignment="Center" FontSize="15" Margin="16 0 12 0"
+                                Text="Sản phẩm 2">
+                            </TextBlock>
+                            <Grid Margin="16 0 16 2" VerticalAlignment="Center">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <ComboBox ItemsSource="{Binding ListStorage}" DisplayMemberPath="NameStorage" SelectedValuePath="IdStorage" SelectedValue="{Binding NewStorage2}" Text="{Binding TestStorage2}"
+                                    Height="40" Margin="5 0 5 0"
+                                      materialDesign:HintAssist.Hint="Kho chứa"
+                                      Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                          materialDesign:TextFieldAssist.HasClearButton="True"
+                          materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource SecondaryHueMidBrush}">
+                                </ComboBox>
+                                <ComboBox  ItemsSource="{Binding ListEmployee2}" DisplayMemberPath="NameEmployee" SelectedValuePath="IdEmployee" SelectedValue="{Binding NewEmployee2}" Text="{Binding TestEmployee2}"
+                                    Height="40" Margin="5 0 5 0" Grid.Column="1"
+                                      materialDesign:HintAssist.Hint="NV phụ trách"
+                                      Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                          materialDesign:TextFieldAssist.HasClearButton="True"
+                          materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource SecondaryHueMidBrush}">
+                                </ComboBox>
+                            </Grid>
+                            <Grid Margin="16 0 16 2" VerticalAlignment="Center">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <ComboBox ItemsSource="{Binding ListProduct}" DisplayMemberPath="NameProduct" SelectedValuePath="IdProduct" SelectedValue="{Binding NewProduct2}"
+                                    Height="40" Margin="5 0 5 0"
+                                      materialDesign:HintAssist.Hint="Tên sản phẩm"
+                                      Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                          materialDesign:TextFieldAssist.HasClearButton="True"
+                          materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource SecondaryHueMidBrush}">
+                                </ComboBox>
+                                <TextBox Text="{Binding TestUnit2 , UpdateSourceTrigger=PropertyChanged}"
+                                    PreviewTextInput="NumberValidationTextBox"
+                                    Grid.Column="1" Margin="5 0 5 0"
+                                  materialDesign:HintAssist.Hint="Số lượng nhập"
+                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                    materialDesign:TextFieldAssist.HasClearButton="True"
+                          materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource SecondaryHueMidBrush}"/>
+                            </Grid>
+                            <Grid Margin="16 0 16 2" VerticalAlignment="Center">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <DatePicker SelectedDate="{Binding NewMafDate2, StringFormat='yyyy-MM-dd'}"
+                                            Focusable="False"
+                                      Margin="5 0 5 2"
+                                      materialDesign:HintAssist.Hint="Ngày sản xuất">
+                                    <DatePicker.Resources>
+                                        <Style
+                                          x:Key="CustomCalendarDayButton"
+                                          TargetType="CalendarDayButton"
+                                          BasedOn="{StaticResource MaterialDesignCalendarDayButton}">
+                                            <Setter
+                                            Property="materialDesign:CalendarAssist.SelectionColor"
+                                            Value="#B2F39B" />
+                                            <Setter
+                                            Property="materialDesign:CalendarAssist.SelectionForegroundColor"
+                                            Value="Black" />
+                                        </Style>
+                                        <Style
+                                          x:Key="CustomCalendarButton"
+                                          TargetType="CalendarButton"
+                                          BasedOn="{StaticResource MaterialDesignCalendarButton}">
+                                            <Setter
+                                            Property="materialDesign:CalendarAssist.SelectionColor"
+                                            Value="#B2F39B" />
+                                            <Setter
+                                            Property="materialDesign:CalendarAssist.SelectionForegroundColor"
+                                            Value="Black" />
+                                        </Style>
+                                        <Style
+                                          x:Key="CustomCalendar"
+                                          TargetType="{x:Type Calendar}"
+                                          BasedOn="{StaticResource MaterialDesignDatePickerCalendarPortrait}">
+                                            <Setter
+                                            Property="Background"
+                                            Value="#343C3F" />
+                                            <Setter
+                                            Property="Foreground"
+                                            Value="White" />
+                                            <Setter
+                                            Property="materialDesign:CalendarAssist.HeaderBackground"
+                                            Value="#A2E9FF" />
+                                            <Setter
+                                            Property="materialDesign:CalendarAssist.HeaderForeground"
+                                            Value="Black" />
+                                            <Setter
+                                            Property="CalendarDayButtonStyle"
+                                            Value="{StaticResource CustomCalendarDayButton}" />
+                                            <Setter
+                                            Property="CalendarButtonStyle"
+                                            Value="{StaticResource CustomCalendarButton}" />
+                                        </Style>
+                                        <Style
+                                          TargetType="DatePicker"
+                                          BasedOn="{StaticResource MaterialDesignFloatingHintDatePicker}">
+                                            <Setter
+                                            Property="CalendarStyle"
+                                            Value="{StaticResource CustomCalendar}" />
+                                        </Style>
+                                    </DatePicker.Resources>
+                                </DatePicker>
+                                <DatePicker  SelectedDate="{Binding NewExpDate2, StringFormat='yyyy-MM-dd'}"
+                                             Focusable="False"
+                                    Grid.Column="1"
+                                      Margin="5 0 5 2"
+                                      materialDesign:HintAssist.Hint="Hạn sử dụng">
+                                    <DatePicker.Resources>
+                                        <Style
+                                          x:Key="CustomCalendarDayButton"
+                                          TargetType="CalendarDayButton"
+                                          BasedOn="{StaticResource MaterialDesignCalendarDayButton}">
+                                            <Setter
+                                            Property="materialDesign:CalendarAssist.SelectionColor"
+                                            Value="#B2F39B" />
+                                            <Setter
+                                            Property="materialDesign:CalendarAssist.SelectionForegroundColor"
+                                            Value="Black" />
+                                        </Style>
+                                        <Style
+                                          x:Key="CustomCalendarButton"
+                                          TargetType="CalendarButton"
+                                          BasedOn="{StaticResource MaterialDesignCalendarButton}">
+                                            <Setter
+                                            Property="materialDesign:CalendarAssist.SelectionColor"
+                                            Value="#B2F39B" />
+                                            <Setter
+                                            Property="materialDesign:CalendarAssist.SelectionForegroundColor"
+                                            Value="Black" />
+                                        </Style>
+                                        <Style
+                                          x:Key="CustomCalendar"
+                                          TargetType="{x:Type Calendar}"
+                                          BasedOn="{StaticResource MaterialDesignDatePickerCalendarPortrait}">
+                                            <Setter
+                                            Property="Background"
+                                            Value="#343C3F" />
+                                            <Setter
+                                            Property="Foreground"
+                                            Value="White" />
+                                            <Setter
+                                            Property="materialDesign:CalendarAssist.HeaderBackground"
+                                            Value="#A2E9FF" />
+                                            <Setter
+                                            Property="materialDesign:CalendarAssist.HeaderForeground"
+                                            Value="Black" />
+                                            <Setter
+                                            Property="CalendarDayButtonStyle"
+                                            Value="{StaticResource CustomCalendarDayButton}" />
+                                            <Setter
+                                            Property="CalendarButtonStyle"
+                                            Value="{StaticResource CustomCalendarButton}" />
+                                        </Style>
+                                        <Style
+                                          TargetType="DatePicker"
+                                          BasedOn="{StaticResource MaterialDesignFloatingHintDatePicker}">
+                                            <Setter
+                                            Property="CalendarStyle"
+                                            Value="{StaticResource CustomCalendar}" />
+                                        </Style>
+                                    </DatePicker.Resources>
+                                </DatePicker>
+                            </Grid>
+                        </StackPanel>
+                    </materialDesign:Card>
+                    <materialDesign:Card Grid.Row="3"
+                              Background="ForestGreen"
+                              Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                             Margin="5 10 5 0">
+                        <StackPanel>
+                            <TextBlock VerticalAlignment="Center" FontSize="15" Margin="16 0 12 0"
+                                Text="Sản phẩm 3">
+                            </TextBlock>
+                            <Grid Margin="16 0 16 2" VerticalAlignment="Center">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <ComboBox ItemsSource="{Binding ListStorage}" DisplayMemberPath="NameStorage" SelectedValuePath="IdStorage" SelectedValue="{Binding NewStorage3}" Text="{Binding TestStorage3}"
+                                    Height="40" Margin="5 0 5 0"
+                                      materialDesign:HintAssist.Hint="Kho chứa"
+                                      Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                          materialDesign:TextFieldAssist.HasClearButton="True"
+                          materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource SecondaryHueMidBrush}">
+                                </ComboBox>
+                                <ComboBox  ItemsSource="{Binding ListEmployee3}" DisplayMemberPath="NameEmployee" SelectedValuePath="IdEmployee" SelectedValue="{Binding NewEmployee3}" Text="{Binding TestEmployee3}"
+                                    Height="40" Margin="5 0 5 0" Grid.Column="1"
+                                      materialDesign:HintAssist.Hint="NV phụ trách"
+                                      Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                          materialDesign:TextFieldAssist.HasClearButton="True"
+                          materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource SecondaryHueMidBrush}">
+                                </ComboBox>
+                            </Grid>
+                            <Grid Margin="16 0 16 2" VerticalAlignment="Center">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <ComboBox  ItemsSource="{Binding ListProduct}" DisplayMemberPath="NameProduct" SelectedValuePath="IdProduct" SelectedValue="{Binding NewProduct3}"
+                                    Height="40" Margin="5 0 5 0"
+                                      materialDesign:HintAssist.Hint="Tên sản phẩm"
+                                      Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                          materialDesign:TextFieldAssist.HasClearButton="True"
+                          materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource SecondaryHueMidBrush}">
+                                </ComboBox>
+                                <TextBox Text="{Binding TestUnit3 , UpdateSourceTrigger=PropertyChanged}"
+                                    PreviewTextInput="NumberValidationTextBox"
+                                    Grid.Column="1" Margin="5 0 5 0"
+                                  materialDesign:HintAssist.Hint="Số lượng nhập"
+                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                    materialDesign:TextFieldAssist.HasClearButton="True"
+                          materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource SecondaryHueMidBrush}"/>
+                            </Grid>
+                            <Grid Margin="16 0 16 2" VerticalAlignment="Center">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <DatePicker SelectedDate="{Binding NewMafDate3, StringFormat='yyyy-MM-dd'}"
+                                            Focusable="False"
+                                      Margin="5 0 5 2"
+                                      materialDesign:HintAssist.Hint="Ngày sản xuất">
+                                    <DatePicker.Resources>
+                                        <Style
+                                          x:Key="CustomCalendarDayButton"
+                                          TargetType="CalendarDayButton"
+                                          BasedOn="{StaticResource MaterialDesignCalendarDayButton}">
+                                            <Setter
+                                            Property="materialDesign:CalendarAssist.SelectionColor"
+                                            Value="#B2F39B" />
+                                            <Setter
+                                            Property="materialDesign:CalendarAssist.SelectionForegroundColor"
+                                            Value="Black" />
+                                        </Style>
+                                        <Style
+                                          x:Key="CustomCalendarButton"
+                                          TargetType="CalendarButton"
+                                          BasedOn="{StaticResource MaterialDesignCalendarButton}">
+                                            <Setter
+                                            Property="materialDesign:CalendarAssist.SelectionColor"
+                                            Value="#B2F39B" />
+                                            <Setter
+                                            Property="materialDesign:CalendarAssist.SelectionForegroundColor"
+                                            Value="Black" />
+                                        </Style>
+                                        <Style
+                                          x:Key="CustomCalendar"
+                                          TargetType="{x:Type Calendar}"
+                                          BasedOn="{StaticResource MaterialDesignDatePickerCalendarPortrait}">
+                                            <Setter
+                                            Property="Background"
+                                            Value="#343C3F" />
+                                            <Setter
+                                            Property="Foreground"
+                                            Value="White" />
+                                            <Setter
+                                            Property="materialDesign:CalendarAssist.HeaderBackground"
+                                            Value="#A2E9FF" />
+                                            <Setter
+                                            Property="materialDesign:CalendarAssist.HeaderForeground"
+                                            Value="Black" />
+                                            <Setter
+                                            Property="CalendarDayButtonStyle"
+                                            Value="{StaticResource CustomCalendarDayButton}" />
+                                            <Setter
+                                            Property="CalendarButtonStyle"
+                                            Value="{StaticResource CustomCalendarButton}" />
+                                        </Style>
+                                        <Style
+                                          TargetType="DatePicker"
+                                          BasedOn="{StaticResource MaterialDesignFloatingHintDatePicker}">
+                                            <Setter
+                                            Property="CalendarStyle"
+                                            Value="{StaticResource CustomCalendar}" />
+                                        </Style>
+                                    </DatePicker.Resources>
+                                </DatePicker>
+                                <DatePicker  SelectedDate="{Binding NewExpDate3, StringFormat='yyyy-MM-dd'}"
+                                             Focusable="False"
+                                    Grid.Column="1"
+                                      Margin="5 0 5 2"
+                                      materialDesign:HintAssist.Hint="Hạn sử dụng">
+                                    <DatePicker.Resources>
+                                        <Style
+                                          x:Key="CustomCalendarDayButton"
+                                          TargetType="CalendarDayButton"
+                                          BasedOn="{StaticResource MaterialDesignCalendarDayButton}">
+                                            <Setter
+                                            Property="materialDesign:CalendarAssist.SelectionColor"
+                                            Value="#B2F39B" />
+                                            <Setter
+                                            Property="materialDesign:CalendarAssist.SelectionForegroundColor"
+                                            Value="Black" />
+                                        </Style>
+                                        <Style
+                                          x:Key="CustomCalendarButton"
+                                          TargetType="CalendarButton"
+                                          BasedOn="{StaticResource MaterialDesignCalendarButton}">
+                                            <Setter
+                                            Property="materialDesign:CalendarAssist.SelectionColor"
+                                            Value="#B2F39B" />
+                                            <Setter
+                                            Property="materialDesign:CalendarAssist.SelectionForegroundColor"
+                                            Value="Black" />
+                                        </Style>
+                                        <Style
+                                          x:Key="CustomCalendar"
+                                          TargetType="{x:Type Calendar}"
+                                          BasedOn="{StaticResource MaterialDesignDatePickerCalendarPortrait}">
+                                            <Setter
+                                            Property="Background"
+                                            Value="#343C3F" />
+                                            <Setter
+                                            Property="Foreground"
+                                            Value="White" />
+                                            <Setter
+                                            Property="materialDesign:CalendarAssist.HeaderBackground"
+                                            Value="#A2E9FF" />
+                                            <Setter
+                                            Property="materialDesign:CalendarAssist.HeaderForeground"
+                                            Value="Black" />
+                                            <Setter
+                                            Property="CalendarDayButtonStyle"
+                                            Value="{StaticResource CustomCalendarDayButton}" />
+                                            <Setter
+                                            Property="CalendarButtonStyle"
+                                            Value="{StaticResource CustomCalendarButton}" />
+                                        </Style>
+                                        <Style
+                                          TargetType="DatePicker"
+                                          BasedOn="{StaticResource MaterialDesignFloatingHintDatePicker}">
+                                            <Setter
+                                            Property="CalendarStyle"
+                                            Value="{StaticResource CustomCalendar}" />
+                                        </Style>
+                                    </DatePicker.Resources>
+                                </DatePicker>
+                            </Grid>
+                        </StackPanel>
+                    </materialDesign:Card>
+                    <Grid Grid.Row="4" Margin="0 20 0 0">
+                        <Button
+                            Command="{Binding AddCommand}"
+                            Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                            Width="110"
+                            ToolTip="Resource name: MaterialDesignRaisedAccentButton"
+                            Content="Nhập hàng">
+                        </Button>
+                    </Grid>
+                </Grid>
+                <Button x:Name="ButtonClose" HorizontalAlignment="Right" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" Width="30" Height="30" Padding="0" Grid.RowSpan="2">
+                    <materialDesign:PackIcon Kind="Close" Foreground="Black"/>
+                </Button>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>

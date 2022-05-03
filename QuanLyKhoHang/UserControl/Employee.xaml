@@ -1,0 +1,380 @@
+﻿<UserControl x:Class="QuanLyKhoHang.UserControl.Employee"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:QuanLyKhoHang.UserControl"
+             mc:Ignorable="d" 
+             
+             xmlns:uc="clr-namespace:QuanLyKhoHang.UserControl"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        DataContext="{StaticResource EmployeeVM}">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"></ColumnDefinition>
+            <ColumnDefinition Width="auto"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0" VerticalAlignment="Top">
+            <materialDesign:Flipper Name="EditCard" Margin="5,10,5,0">
+                <materialDesign:Flipper.FrontContent>
+                    <Grid Height="500" Width="250" Background="Wheat">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="300" />
+                            <RowDefinition Height="200" />
+                        </Grid.RowDefinitions>
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            Margin="16 16 12 8"
+                            FontSize="16"
+                            Text="Thông tin nhân viên">
+                        </TextBlock>
+                        <Image Grid.Row="1"  Height="300" Width="280" Margin="5 0 5 0" Source="{Binding ImageEmp, UpdateSourceTrigger=PropertyChanged}" Stretch="Uniform"></Image>
+
+                        <StackPanel Grid.Row="2">
+                            <TextBlock Text="{Binding NameEmployee, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" Margin="0 5 0 0" Foreground="Black" FontSize="15"></TextBlock>
+                            <TextBlock Text="{Binding NameRank, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" Margin="0 5 0 0" Foreground="Black" FontSize="12"></TextBlock>
+                            <Button
+                                VerticalAlignment="Bottom"
+                                Style="{StaticResource MaterialDesignFlatButton}"
+                                Command="{x:Static materialDesign:Flipper.FlipCommand}"
+                                Margin="0 4 0 0"
+                                Foreground="DarkBlue">
+                                Sửa thông tin
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+                </materialDesign:Flipper.FrontContent>
+                <materialDesign:Flipper.BackContent>
+                    <Grid Height="500" Width="250" Background="Wheat">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <materialDesign:ColorZone Mode="PrimaryDark" Padding="6">
+                            <StackPanel Orientation="Horizontal">
+                                <Button
+                                    Style="{StaticResource MaterialDesignToolForegroundButton}"
+                                    Command="{x:Static materialDesign:Flipper.FlipCommand}"
+                                    HorizontalAlignment="Left">
+                                    <materialDesign:PackIcon
+                                        Kind="ArrowLeft"
+                                        HorizontalAlignment="Right" />
+                                </Button>
+                                <TextBlock
+                                    Margin="4 0 0 0"
+                                    VerticalAlignment="Center">
+                                    Quay lại
+                                </TextBlock>
+                            </StackPanel>
+                        </materialDesign:ColorZone>
+
+                        <Grid Grid.Row="1" Width="180">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="60"></RowDefinition>
+                                <RowDefinition Height="40"></RowDefinition>
+                                <RowDefinition Height="40"></RowDefinition>
+                                <RowDefinition Height="40"></RowDefinition>
+                                <RowDefinition Height="40"></RowDefinition>
+                                <RowDefinition Height="40"></RowDefinition>
+                                <RowDefinition Height="40"></RowDefinition>
+                                <RowDefinition Height="40"></RowDefinition>
+                                <RowDefinition Height="40"></RowDefinition>
+                                <RowDefinition Height="40"></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="40"></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0">
+                                    <Image Source="{Binding tmpImageEmp, UpdateSourceTrigger=PropertyChanged}" Stretch="Uniform"></Image>
+                                </Grid>
+                                <Button
+                                    Grid.Column="1"
+                                    Style="{StaticResource MaterialDesignFlatButton}"
+                                    Command="{Binding BrowseCommand, UpdateSourceTrigger=PropertyChanged}"
+                                    Margin="0 4 0 0"
+                                    Foreground="DarkBlue"
+                                    HorizontalAlignment="Left"
+                                    FontSize="10">
+                                    Đổi ảnh
+                                </Button>
+                            </Grid>
+                            
+                            <TextBox Grid.Row="1"                     
+                                materialDesign:HintAssist.Hint="Họ và tên"
+                                materialDesign:HintAssist.IsFloating="True"
+                                Margin="0 5 0 0"
+                                Text="{Binding NameEmployee, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                            </TextBox>
+                            <ComboBox Grid.Row="2" Width="180" Text="{Binding Sex, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                ItemsSource="{Binding ListSex}" SelectedValue="{Binding Sex}"
+                                          materialDesign:HintAssist.Hint="Giới tính"
+                                          materialDesign:HintAssist.IsFloating="True">
+                            </ComboBox>
+                            <DatePicker Grid.Row="3"
+                                        Width="180"
+                                        Focusable="False"
+                                        materialDesign:HintAssist.Hint="Ngày sinh"
+                                        Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
+                                        Text="{Binding Birthday, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                            </DatePicker>
+                            <DatePicker Grid.Row="4"
+                                        Width="180"
+                                        Focusable="False"
+                                        materialDesign:HintAssist.Hint="Ngày vào làm"
+                                        Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
+                                        Text="{Binding DateOfStart, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                            </DatePicker>
+                            <ComboBox Grid.Row="5" Width="180" Text="{Binding NameRank, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                ItemsSource="{Binding ListRank}" DisplayMemberPath="NameRank" SelectedValuePath="IdRank" SelectedValue="{Binding NewIDRank}"
+                                          materialDesign:HintAssist.Hint="Chức vụ"
+                                          materialDesign:HintAssist.IsFloating="True">
+                            </ComboBox>
+                            <ComboBox Grid.Row="6" Width="180" Text="{Binding NameStorage, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                ItemsSource="{Binding ListStorage}" DisplayMemberPath="NameStorage" SelectedValuePath="IdStorage" SelectedValue="{Binding NewIDStorage}"
+                                          materialDesign:HintAssist.Hint="Nơi làm việc"
+                                          materialDesign:HintAssist.IsFloating="True">
+                            </ComboBox>
+                            <TextBox Grid.Row="7"
+                                     materialDesign:HintAssist.Hint="Số điện thoại"
+                                     materialDesign:HintAssist.IsFloating="True"
+                                     Margin="0 5 0 0"
+                                     Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                            </TextBox>
+                            <TextBox Grid.Row="8"
+                                     materialDesign:HintAssist.Hint="Địa chỉ"
+                                     materialDesign:HintAssist.IsFloating="True"
+                                     Margin="0 5 0 0"
+                                     Text="{Binding AddressEmp, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                            </TextBox>
+                            <Button
+                                Grid.Row="9"
+                                Name="btnEdit"
+                                Content="Lưu"
+                                Command="{Binding EditCommand}"
+                                HorizontalAlignment="Center"
+                                Margin="0 10 0 0"
+                                Style="{StaticResource MaterialDesignRaisedButton}"
+                                Width="70"
+                                ToolTip="Resource name: MaterialDesignRaisedButton">
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </materialDesign:Flipper.BackContent>
+            </materialDesign:Flipper>
+            <materialDesign:Card Name="AddCard" Visibility="Hidden"
+                HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                Background="Wheat">
+                <StackPanel>
+                    <TextBlock
+                        Margin="16 16 12 8"
+                        FontSize="18"
+                        HorizontalAlignment="Center"
+                        Text="Thêm nhân viên mới">
+                    </TextBlock>
+                    <Grid Grid.Row="1" Width="180">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="60"></RowDefinition>
+                            <RowDefinition Height="40"></RowDefinition>
+                            <RowDefinition Height="40"></RowDefinition>
+                            <RowDefinition Height="40"></RowDefinition>
+                            <RowDefinition Height="40"></RowDefinition>
+                            <RowDefinition Height="40"></RowDefinition>
+                            <RowDefinition Height="40"></RowDefinition>
+                            <RowDefinition Height="40"></RowDefinition>
+                            <RowDefinition Height="40"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="40"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0">
+                                <Image Source="{Binding NewImageEmp, UpdateSourceTrigger=PropertyChanged}" Stretch="Uniform"></Image>
+                            </Grid>
+                            <Button
+                                    Grid.Column="1"
+                                    Style="{StaticResource MaterialDesignFlatButton}"
+                                    Command="{Binding BrowseCommand, UpdateSourceTrigger=PropertyChanged}"
+                                    Margin="0 4 0 0"
+                                    Foreground="DarkBlue"
+                                    HorizontalAlignment="Left"
+                                    FontSize="10">
+                                Chọn ảnh
+                            </Button>
+                        </Grid>
+                        <TextBox Grid.Row="1"                     
+                                materialDesign:HintAssist.Hint="Họ và tên"
+                                materialDesign:HintAssist.IsFloating="True"
+                                Margin="0 5 0 0"
+                                Text="{Binding NewName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                        </TextBox>
+                        <ComboBox Grid.Row="2" Width="180" Text="{Binding Sex, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                ItemsSource="{Binding ListSex}"  SelectedValue="{Binding NewSex}"
+                                          materialDesign:HintAssist.Hint="Giới tính"
+                                          materialDesign:HintAssist.IsFloating="True">
+                        </ComboBox>
+                        <DatePicker Grid.Row="3"
+                                    Width="180"
+                                    Focusable="False"
+                                    materialDesign:HintAssist.Hint="Ngày sinh"
+                                    Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
+                                    Text="{Binding NewBirthday, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                        </DatePicker>
+                        <DatePicker Grid.Row="4"
+                                    Width="180"
+                                    Focusable="False"
+                                    materialDesign:HintAssist.Hint="Ngày vào làm"
+                                    Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
+                                    Text="{Binding NewDateOfStart, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                        </DatePicker>
+                        <ComboBox Grid.Row="5" Width="180" Text="{Binding NameRank, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                ItemsSource="{Binding ListRank}" DisplayMemberPath="NameRank" SelectedValuePath="IdRank" SelectedValue="{Binding NewIDRank}"
+                                          materialDesign:HintAssist.Hint="Chức vụ"
+                                          materialDesign:HintAssist.IsFloating="True">
+                        </ComboBox>
+                        <ComboBox Grid.Row="6" Width="180" Text="{Binding NameStorage, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                ItemsSource="{Binding ListStorage}" DisplayMemberPath="NameStorage" SelectedValuePath="IdStorage" SelectedValue="{Binding NewIDStorage}"
+                                          materialDesign:HintAssist.Hint="Nơi làm việc"
+                                          materialDesign:HintAssist.IsFloating="True">
+                        </ComboBox>
+                        <TextBox Grid.Row="7"
+                                     materialDesign:HintAssist.Hint="Số điện thoại"
+                                     materialDesign:HintAssist.IsFloating="True"
+                                     Margin="0 5 0 0"
+                                     Text="{Binding NewPhoneNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                        </TextBox>
+                        <TextBox Grid.Row="8"
+                                     materialDesign:HintAssist.Hint="Địa chỉ"
+                                     materialDesign:HintAssist.IsFloating="True"
+                                     Margin="0 5 0 0"
+                                     Text="{Binding NewAddress, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                        </TextBox>
+                        <Grid Grid.Row="10" Margin="0 20 0 0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Button
+                                Background="#2e7d32"
+                                Name="btnSave"
+                                Command="{Binding AddCommand}"
+                                Width="70">
+                                <materialDesign:PackIcon Kind="CheckBold" />
+                            </Button>
+                            <Button
+                                Grid.Column="1"
+                                Background="#d50000"
+                                Name="btnCancel"
+                                Margin="10 0 0 0"
+                                Width="70" Click="btnCancel_Click">
+                                <materialDesign:PackIcon Kind="CloseThick" />
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </StackPanel>
+            </materialDesign:Card>
+        </Grid>
+        
+        <Grid Grid.Column="1">
+            <Rectangle Margin="5 0 0 0" VerticalAlignment="Stretch" Fill="Gray" Width="1"/>
+        </Grid>
+
+        <Grid Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <materialDesign:Card Margin="5 5 5 0">
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Grid.Column="0">
+                        <TextBox
+                    Name="tbxFilter" Text="{Binding Path= Filter, UpdateSourceTrigger=PropertyChanged}"
+                    HorizontalAlignment="Left"
+                    Width="250"
+                    Margin="10 0 0 5"
+                    materialDesign:HintAssist.Hint="Tìm kiếm"
+                    Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    </Grid>
+
+                    <Grid Grid.Column="1">
+                        <!--This button just to visible the AddCard and hidden the EditCard,
+                        AddCommand was bond to button Save (AddCard)-->
+                        <Button
+                            Name="btnAdd"
+                            Content="Thêm"
+                            HorizontalAlignment="Left"
+                            Margin="10 5 5 5"
+                            Style="{StaticResource MaterialDesignRaisedButton}"
+                            Width="100"
+                            ToolTip="Resource name: MaterialDesignRaisedButton" Click="btnAdd_Click">
+                        </Button>
+                    </Grid>
+
+                    <Grid Grid.Column="2">
+                        <Button
+                            Name="btnDelete"
+                            Content="Xóa"
+                            Command="{Binding DeleteCommand, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                            HorizontalAlignment="Left"
+                            Margin="10 5 5 5"
+                            Style="{StaticResource MaterialDesignRaisedButton}"
+                            Width="100"
+                            ToolTip="Resource name: MaterialDesignRaisedButton">
+                        </Button>
+                    </Grid>
+                </Grid>
+            </materialDesign:Card>
+
+            <Separator Grid.Row="1" Style="{StaticResource MaterialDesignDarkSeparator}"></Separator>
+            
+            <materialDesign:Card Grid.Row="2" Margin="5 0 5 5">
+                <ListView Grid.ColumnSpan="2" Margin="0,0,0.4,0.2" Name="lvEmployee" ItemsSource="{Binding ListEmployee}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="ID" DisplayMemberBinding="{Binding employee.IdEmployee}"></GridViewColumn>
+                            <GridViewColumn Header="Chức vụ" DisplayMemberBinding="{Binding rank}"></GridViewColumn>
+                            <GridViewColumn Header="Họ và tên" DisplayMemberBinding="{Binding employee.NameEmployee}"></GridViewColumn>
+                            <GridViewColumn Header="Giới tính" DisplayMemberBinding="{Binding employee.Sex}"></GridViewColumn>
+                            <GridViewColumn Header="Ngày sinh" DisplayMemberBinding="{Binding employee.Birthday, StringFormat=dd/MM/yyyy}"></GridViewColumn>
+                            <GridViewColumn Header="Ngày vào làm" DisplayMemberBinding="{Binding employee.DateOfStart, StringFormat=dd/MM/yyyy}"></GridViewColumn>
+                            <GridViewColumn Header="Địa chỉ" DisplayMemberBinding="{Binding employee.AddressEmp}"></GridViewColumn>
+                            <GridViewColumn Header="Số điện thoại" DisplayMemberBinding="{Binding employee.PhoneNumber}"></GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                    <ListView.GroupStyle>
+                        <GroupStyle>
+                            <GroupStyle.HeaderTemplate>
+                                <DataTemplate>
+                                    <TextBlock Margin="10 0 0 0" FontSize="16" FontWeight="Bold" Style="{StaticResource MaterialDesignHelperTextBlock}"
+                                               Text="{Binding Name}" Foreground="#FFC22A2A"/>
+                                </DataTemplate>
+                            </GroupStyle.HeaderTemplate>
+                        </GroupStyle>
+                    </ListView.GroupStyle>
+                </ListView>
+            </materialDesign:Card>
+        </Grid>
+    </Grid>
+</UserControl>
